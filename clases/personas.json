@@ -1,0 +1,33 @@
+[
+    {
+        "identificacion": "1234567890",
+        "fecha_exp": "2024-01-01",
+        "lugar_exp": "Lugar Exp",
+        "nombres": "Juan Perez",
+        "apellido1": "Perez",
+        "apellido2": "Lopez",
+        "fecha_nacimiento": "1990-01-01",
+        "genero": "M",
+        "sexo": "M",
+        "telefono": "555-5555",
+        "email": "juan.perez@example.com",
+        "direccion": "Calle Falsa 123",
+        "nacionalidad": "Colombiano"
+    },
+    {
+        "identificacion": "0987654321",
+        "fecha_exp": "2024-01-02",
+        "lugar_exp": "Lugar Exp 2",
+        "nombres": "Maria Gomez",
+        "apellido1": "Gomez",
+        "apellido2": "Torres",
+        "fecha_nacimiento": "1992-02-02",
+        "genero": "F",
+        "sexo": "F",
+        "telefono": "555-5556",
+        "email": "maria.gomez@example.com",
+        "direccion": "Avenida Siempre Viva 456",
+        "nacionalidad": "Colombiana"
+    }
+]
+
