@@ -1,0 +1,46 @@
+import datetime
+
+class Cita ():
+    def __init__(self,):
+        self._noCita = 0
+        self._vigencia = 0
+        self._fechaCreacion = datetime.datetime.now()
+        self._fechaCita = 0
+        self._medico = 0
+        self._consultorio = 0
+        self.setVigencia()
+     
+    def setNoCita(self):
+        pass 
+    
+    def setVigencia(self):
+        año = self._fechaCreacion.year
+        mes = self._fechaCreacion.month
+        dia = self._fechaCreacion.day + 20
+
+        if dia > 29 :
+            dia = dia - 29
+            mes = mes + 1
+            if mes > 12:
+                mes = 1
+                año = año + 1
+        self._vigencia = datetime.date(año, mes, dia)        
+        
+    def getNoCita(self):
+        return self._noCita
+    
+    def getVigencia(self):
+        return self._vigencia
+    
+    def getFechaCreacion(self):
+        return self._fechaCreacion
+
+    def getFechaCita(self):
+        return self._fechaCita
+    
+    
+    
+p = Cita()
+
+print(p.getVigencia())
+        
