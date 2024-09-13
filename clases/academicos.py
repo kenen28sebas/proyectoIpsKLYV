@@ -16,3 +16,5 @@ class Academicos ():
         return self.__fechaInicio
     def getFechaF (self):
         return self.__fechaFin 
+    
+

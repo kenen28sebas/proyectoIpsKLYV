@@ -3,6 +3,7 @@ from customtkinter import *
 from tkcalendar import DateEntry
 from tkcalendar import *
 
+
 class Sipi(CTkFrame):
     def __init__(self, master,titulo,ancho,largo,largo2):
         super().__init__(master, width=ancho,height=largo,fg_color="white")

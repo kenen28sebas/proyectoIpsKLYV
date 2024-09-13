@@ -1,6 +1,7 @@
 from conexion import *
 class Persona:
-    def __init__(self, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
+    def __init__(self,tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
+        self.__tipo_doc = tipo_doc
         self.__identificacion = identificacion
         self.__fecha_exp = fecha_exp
         self.__lugar_exp = lugar_exp
@@ -15,6 +16,11 @@ class Persona:
 
 
 # Identificacion
+    def getTipoDoc(self):
+        return self.__tipo_doc
+    def setTipoDoc(self, tipo_doc):
+        self.__tipo_doc = tipo_doc
+
     def getIdentificacion(self):
         return self.__identificacion
 
