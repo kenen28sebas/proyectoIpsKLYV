@@ -1,28 +1,34 @@
-from persona import *
-# from hojavida import *
+from clases.persona import *
+from clases.personalM import *
 # from academicos import *
 # from experienciaL import *
-from personalM import *
+
+from clases.personalM import *
 class TalentoH (Persona):
 
-    def __init__(self, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
-        super().__init__(identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email)
+    def __init__(self, tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
+        super().__init__(tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email)
     
-    def crearPm(self):
-        objeto=Medicos(45665,"11-04-1258","Soacha","maria","ramirez","nuñez","10-02-1325","mujer","jesucristo","3225698745","diostebendiga0945@gmail.com","ginecologa")
-        return objeto
+    def crearPm(self,tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email, especialidad):
+        per = Medicos( tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email, especialidad)
+        return per
+
+    
 
 
 
-p1=TalentoH(12548,"20-05-2024","Bogota","jose alberto","perez","caedenas","03-12-2005","indefinido","travesti","3115698569","kdjskdks@gmail.com")
-# print(p1.getNombres())
 
-pm1=Medicos(45665,"10-04-1698","Suba","martha","contreras","nuñez","14-02-1998","mujer","lesbiana","3225698745","tupapaentanga565@gmail.com","medicina general")
-print(pm1.getEspecialidad())
+    
 
-pm2=p1.crearPm()
 
-print(pm2.getSexo())
+
+
+
+
+
+
+
+
 
 
     

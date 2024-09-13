@@ -1,14 +1,18 @@
 from typing import Any, Tuple
 from customtkinter import *
+from clases.th import *
 
 class Sipi(CTkFrame):
     def __init__(self, master,titulo,ancho,largo,largo2):
         super().__init__(master, width=ancho,height=largo,fg_color="white")
         self.titulo=titulo
-        tituloE = CTkLabel(self,text=self.titulo,font=("coolvetica rg",20))
+        tituloE = CTkLabel(self,text=self.titulo,font=("coolvetica rg",20),text_color="black")
         tituloE.place(x=20,y=0)
-        caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2)
-        caja.place(x=20,y=30)
+        self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
+        self.caja.place(x=20,y=30)
+    
+    def getEntri(self):
+        return self.caja.get()   
 
 
 ventana = CTk(fg_color="white")
@@ -36,6 +40,21 @@ titulo=CTkLabel(
 
 )
 
+lina = TalentoH("CC",
+    "123456789",
+    "01/01/2022",
+    "Bogotá, Colombia",
+     "Juan",
+    "Pérez",
+    "Gómez",
+     "15/05/1990",
+   "Masculino",
+     "Hombre",
+    "321-555-1234",
+    "juan.perez@example.com")
+
+
+
 cuadrito.place(x=0,y=0)
 
 
@@ -44,6 +63,15 @@ titulo.place(x=220,y=50)
 
 nombre=Sipi(ventana,"Nombres completos:",250,100,200)
 nombre.place(x=50,y=200)
+
+
+
+def m ():
+    print(nombre.getEntri())
+
+b = CTkButton(ventana,command=lambda:m())    
+b.place(x=0,y=0)
+
 
 apellido1=Sipi(ventana,"Apellido 1:",250,100,200)
 apellido1.place(x=50,y=280)
@@ -78,7 +106,7 @@ email.place(x=350,y=520)
 especialidad=Sipi(ventana,"Especialidad:",250,100,200)
 especialidad.place(x=350,y=600)
 
-
+# jose = lina.crearPm(
 
 # ejemplo = Sipi(ventana,"lina la mas bonita",100,200)
 # ejemplo.place(x=10,y=10)
