@@ -67,10 +67,11 @@ nombre.place(x=50,y=200)
 
 
 def m ():
-    print(nombre.getEntri())
+    print(nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri())
 
 b = CTkButton(ventana,command=lambda:m())    
 b.place(x=0,y=0)
+
 
 
 apellido1=Sipi(ventana,"Apellido 1:",250,100,200)
@@ -106,7 +107,7 @@ email.place(x=350,y=520)
 especialidad=Sipi(ventana,"Especialidad:",250,100,200)
 especialidad.place(x=350,y=600)
 
-# jose = lina.crearPm(
+
 
 # ejemplo = Sipi(ventana,"lina la mas bonita",100,200)
 # ejemplo.place(x=10,y=10)
