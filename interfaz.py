@@ -6,12 +6,14 @@ from tkcalendar import *
 from clases.th import *
 from clases.personalM import *
 
+
 ventana = CTk(fg_color="white")
 ventana.title("personal medico")
 ventana.geometry("800x900")
 
-barra=CTkScrollableFrame(master=ventana,width=720,height=630,fg_color="white")
-barra.place(x=50,y=150)
+
+barra=CTkScrollableFrame(master=ventana,width=770,height=630,fg_color="white",corner_radius=5)
+barra.place(x=0,y=150)
 
 
 
@@ -66,7 +68,10 @@ cuadrito = CTkFrame(
     master=ventana,
     width=800,
     height=150,
-    fg_color="#44E3D3"
+    fg_color="#cbf3f0",
+    border_width=5,
+    border_color="#2ec4b6"
+
 )
 
 cuadrito.place(x=0, y=0)  
@@ -81,7 +86,7 @@ titulo = CTkLabel(
 titulo.place(x=280, y=50)  
 
 
-formularioIm = Image.open("C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\formulario.png")
+formularioIm = Image.open("C:\\Users\\linit\\OneDrive\Escritorio\\proyectoIpsKLYV\\hp.png")
 formularioIm = formularioIm.resize((100, 100))
 imagen = CTkImage(light_image=formularioIm, size=(100, 100))
 
@@ -91,6 +96,7 @@ lblformulario = CTkLabel(
     text=""
 )
 lblformulario.place(x=50, y=30)
+
 
 
 
@@ -125,8 +131,11 @@ class Nopi(CTkFrame):
         self.titulo=titulo
         ttlo=CTkLabel(self,text=self.titulo,font=("coolvetica rg",18))
         ttlo.place(x=20,y=12)
-        combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18))
-        combo.place(x=20,y=40)
+        self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18))
+        self.combo.place(x=20,y=40)
+
+    def getEntri(self):
+        return self.combo.get()
 
 
 class Date(CTkFrame):
@@ -139,6 +148,8 @@ class Date(CTkFrame):
         
         self.j = DateEntry(self, width=20, background='lightblue', foreground='black', borderwidth=2, font=('coolvetica rg', 12))
         self.j.grid(row=2, column=1,pady=5)
+    def getEntri(self):
+        return self.j.get()
         
         
 
