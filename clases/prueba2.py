@@ -1,8 +1,8 @@
-from persona import *
+from clases.persona import *
 # from hojavida import *
 # from academicos import *
 # from experienciaL import *
-from personalM import Medicos
+from clases.personalM import Medicos
 class TalentoH (Persona):
 
     def __init__(self, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
@@ -11,6 +11,10 @@ class TalentoH (Persona):
     def crearPm(self,identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email,especialidad):
         objeto=Medicos(identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email,especialidad)
         return objeto
+    
+
+    
+
 
 
 
