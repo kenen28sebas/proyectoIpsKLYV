@@ -1,9 +1,9 @@
-from clases.persona import *
-from clases.personalM import *
+from persona import *
+from personalM import *
 # from academicos import *
 # from experienciaL import *
 
-from clases.personalM import *
+from personalM import *
 class TalentoH (Persona):
 
     def __init__(self, tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):

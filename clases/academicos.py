@@ -7,7 +7,7 @@ class Academicos ():
         self.__fechaInicio=fechaInicio
         self.__fechaFin=fechaFin
 
-    def gettitulo (self):
+    def getTitulo (self):
         return self.__titulo
 
     def getInstitucion (self):
