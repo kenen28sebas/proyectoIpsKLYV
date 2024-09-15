@@ -14,7 +14,35 @@ barra=CTkScrollableFrame(master=ventana,width=720,height=630,fg_color="white")
 barra.place(x=50,y=150)
 
 
+class OpcionesBig(CTkButton):
+    def __init__(self, master, titulo, evento):
+        super().__init__(master, text=titulo, width=200, height=200, command=evento)
+        self.lbl = CTkLabel(self, text=titulo)
+        self.lbl.place(x=100,y=200)
+        
 
+class Usuario(CTkButton):
+    def __init__(self, master, nombre,apelidos,nod,tipod,evento):
+        super().__init__(master, text="", width=300, height=80,command=evento)
+        self.lbln = CTkLabel(self,text="Nombre :")
+        self.lbln.place(x=20,y=10)
+        self.lblNombre = CTkLabel(self,text=nombre)
+        self.lblNombre.place(x=75,y=10)
+        
+        self.lbla = CTkLabel(self,text="Apellido :")
+        self.lbla.place(x=20,y=30)
+        self.lblApellido = CTkLabel(self,text=apelidos)
+        self.lblApellido.place(x=75,y=30)
+        
+        self.lbltd = CTkLabel(self,text="Tipo de documento:")
+        self.lbltd.place(x=20,y=50)
+        self.lbltipd = CTkLabel(self,text=tipod)
+        self.lbltipd.place(x=150,y=50)
+        
+        self.lbld = CTkLabel(self,text="No.:")
+        self.lbld.place(x=170,y=50)
+        self.lblnd = CTkLabel(self,text=nod)
+        self.lblnd.place(x=200,y=50)
 
 
 class Sipi(CTkFrame):
