@@ -21,25 +21,11 @@ class A:
     def crearOb(self):
         objeto =B(1234)
         return objeto
-    def crearObC(self):
-        objectoc = C("grande")
-        return objectoc
-    
-
+        
 class B:
     def __init__(self,id) :
-        self.id = id     
-        self.tipoCola = []
-
-    def setCola (self,ob):
-        self.tipoCola.append(ob)
-
-class C :
-    def __init__(self,cola) :        
-        self.cola = cola
-
-
-
+        self.id = id      
+        
 
 jose = A(1234, "capitan")
 print(jose.id)
@@ -49,5 +35,4 @@ print(martha.id)
 
 nancuy =jose.crearOb()
 
-colaGRAnde = jose.crearObC()
-print(colaGRAnde.cola)
+print(nancuy.id)

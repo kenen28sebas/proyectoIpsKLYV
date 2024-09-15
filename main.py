@@ -1,111 +1,71 @@
-from typing import Any, Tuple
-from customtkinter import *
-from clases.th import *
-
-class Sipi(CTkFrame):
-    def __init__(self, master,titulo,ancho,largo,largo2):
-        super().__init__(master, width=ancho,height=largo,fg_color="white")
-        self.titulo=titulo
-        tituloE = CTkLabel(self,text=self.titulo,font=("coolvetica rg",20),text_color="black")
-        tituloE.place(x=20,y=0)
-        self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
-        self.caja.place(x=20,y=30)
-    
-    def getEntri(self):
-        return self.caja.get()   
-
-
-ventana = CTk(fg_color="white")
-ventana.title("personal medico")
-ventana.geometry("700x700")
+from interfaz import *
 
 
 
 
+nombre = Sipi(barra, "Nombres completos:", 230, 80, 200)
+nombre.grid(row=1, column=0, padx=10, pady=10)
 
-cuadrito=CTkFrame(
-    master=ventana,
-    width=700,
-    height=150,
-    fg_color="#44E3D3"
+apellido1 = Sipi(barra, "Apellido 1:", 230, 80, 200)
+apellido1.grid(row=1, column=1, padx=10, pady=10)
 
-)
+apellido2 = Sipi(barra, "Apellido 2:", 230, 80, 200)
+apellido2.grid(row=2, column=0, padx=10, pady=10)
 
-titulo=CTkLabel(
-    master=cuadrito,
-    text="Registro del Medico",
-    text_color="black",
-    font=("coolvetica rg",30)
+identificacion = Sipi(barra, "Número identificación:", 230, 80, 200)
+identificacion.grid(row=2, column=1, padx=10, pady=10)
+identificacion.validar()
 
+fcha_exp = Date(barra, "Fecha de expedición:")
+fcha_exp.grid(row=3, column=0, padx=10, pady=10)
 
-)
+tip_doc = Nopi(barra, "Tipo de documento:", 230, 100, ["CC", "TI"], 200)
+tip_doc.grid(row=3, column=1, padx=10, pady=10)
 
-lina = TalentoH("CC",
-    "123456789",
-    "01/01/2022",
-    "Bogotá, Colombia",
-     "Juan",
-    "Pérez",
-    "Gómez",
-     "15/05/1990",
-   "Masculino",
-     "Hombre",
-    "321-555-1234",
-    "juan.perez@example.com")
+lugar_exp = Sipi(barra, "Lugar expedición:", 250, 100, 200)
+lugar_exp.grid(row=4, column=0, padx=10, pady=10)
 
+fecha_na = Date(barra, "Fecha de Nacimiento:")
+fecha_na.grid(row=4, column=1, padx=10, pady=10)
 
+genero = Nopi(barra, "Género:", 250, 100, ["Masculino", "Femenino", "Otro"], 200)
+genero.grid(row=5, column=0, padx=10, pady=10)
 
-cuadrito.place(x=0,y=0)
+sexo = Sipi(barra, "Sexo:", 250, 100, 200)
+sexo.grid(row=5, column=1, padx=10, pady=10)
 
+telefono = Sipi(barra, "Teléfono:", 250, 100, 200)
+telefono.grid(row=6, column=0, padx=10, pady=10)
+telefono.validar()
 
-titulo.place(x=220,y=50)
+email = Sipi(barra, "Email:", 250, 100, 200)
+email.grid(row=6, column=1, padx=10, pady=10)
 
-
-nombre=Sipi(ventana,"Nombres completos:",250,100,200)
-nombre.place(x=50,y=200)
-
+especialidad = Sipi(barra, "Especialidad:", 250, 100, 200)
+especialidad.grid(row=7, column=0, padx=10, pady=10)
 
 
-def m ():
-    print(nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri())
+# h = None
 
-b = CTkButton(ventana,command=lambda:m())    
-b.place(x=0,y=0)
+# def cargarPm (th):
+#     ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fecha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
+#     return ob
+
+# def hola (th):
+#     ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fecha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri(),"s")
+#     h = ob
+#     print(h.getNombres())
+
+# btn = CTkButton(ventana,text="vive la vida",command=lambda:hola(p1))
+# btn.place(x=0,y=0)
 
 
 
-apellido1=Sipi(ventana,"Apellido 1:",250,100,200)
-apellido1.place(x=50,y=280)
 
-apellido2=Sipi(ventana,"Apellido 2:",250,100,200)
-apellido2.place(x=50,y=360)
+ventana.mainloop()
 
-identificacion=Sipi(ventana,"Numero identificacion:",250,100,200)
-identificacion.place(x=50,y=440)
 
-fecha_exp=Sipi(ventana,"Fecha expedicion:",250,100,200)
-fecha_exp.place(x=50,y=520)
 
-lugar_exp=Sipi(ventana,"Lugar expedicion:",250,100,200)
-lugar_exp.place(x=50,y=600)
-
-fecha_na=Sipi(ventana,"Fecha de Nacimiento:",250,100,200)
-fecha_na.place(x=350,y=200)
-
-genero=Sipi(ventana,"Genero:",250,100,200)
-genero.place(x=350,y=280)
-
-sexo=Sipi(ventana,"Sexo:",250,100,200)
-sexo.place(x=350,y=360)
-
-telefono=Sipi(ventana,"Telefono:",250,100,200)
-telefono.place(x=350,y=440)
-
-email=Sipi(ventana,"Email:",250,100,200)
-email.place(x=350,y=520)
-
-especialidad=Sipi(ventana,"Especialidad:",250,100,200)
-especialidad.place(x=350,y=600)
 
 
 
@@ -117,5 +77,3 @@ especialidad.place(x=350,y=600)
 
 # ejmeplo3 = Sipi(ventana,"yhoneida no se baña",200,300)
 # ejmeplo3.place(x=10,y=80)
-
-ventana.mainloop()
