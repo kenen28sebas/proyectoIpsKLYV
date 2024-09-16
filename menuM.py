@@ -26,7 +26,7 @@ cuadrito.place(x=0, y=0)
 
 titulo = CTkLabel(
     master=cuadrito, 
-    text="Menu principal",
+    text="Menu principal TH",
     text_color="black",
     font=("Ready For Fall", 30)
 )

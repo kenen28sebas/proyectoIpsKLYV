@@ -6,7 +6,7 @@ from tkcalendar import *
 ventana=CTk(fg_color="white")
 ventana.title("Formulario solicitud de actualizacion")
 ventana.geometry("950x700")
-
+ventana.resizable(False,False)
 
 cuadrito = CTkFrame(
     master=ventana,

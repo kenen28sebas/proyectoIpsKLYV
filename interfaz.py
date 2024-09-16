@@ -100,6 +100,8 @@ lblformulario.place(x=50, y=30)
 
 
 
+
+
 # hospital=Image.open("C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\hospital.png")
 # hospital=hospital.resize((100,100))
 # imagen2=CTkImage(light_image=hospital,size=(100,100))
