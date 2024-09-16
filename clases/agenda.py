@@ -28,7 +28,9 @@ fecha_actual = datetime.datetime(2012,1,6)
 # Obtener el número de la semana del año
 numero_semana = fecha_actual.isocalendar()[2]
 
+s = numero_semana.day
+
 print(f"Estamos en la semana número {numero_semana} del año.")
 
-print(numero_semana)
+print(s)
 

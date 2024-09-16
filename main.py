@@ -28,10 +28,10 @@ lugar_exp.grid(row=4, column=0, padx=10, pady=10)
 fecha_na = Date(barra, "Fecha de Nacimiento:")
 fecha_na.grid(row=4, column=1, padx=10, pady=10)
 
-genero = Nopi(barra, "Género:", 250, 100, ["Masculino", "Femenino", "Otro"], 200)
+genero = Nopi(barra, "Género:", 250, 100, ["sdkn","jndckj","jsdndjn"], 200)
 genero.grid(row=5, column=0, padx=10, pady=10)
 
-sexo = Sipi(barra, "Sexo:", 250, 100, 200)
+sexo = Nopi(barra, "Sexo:", 250, 100, ["Masculino","Femenino"],200)
 sexo.grid(row=5, column=1, padx=10, pady=10)
 
 telefono = Sipi(barra, "Teléfono:", 250, 100, 200)
@@ -45,19 +45,20 @@ especialidad = Sipi(barra, "Especialidad:", 250, 100, 200)
 especialidad.grid(row=7, column=0, padx=10, pady=10)
 
 
-# h = None
+h = None
 
-# def cargarPm (th):
-#     ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fecha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
-#     return ob
+def cargarPm (th):
+    ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
+    return ob
 
-# def hola (th):
-#     ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fecha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri(),"s")
-#     h = ob
-#     print(h.getNombres())
+def hola (th):
+    ob = th.crearPm(nombre.getEntri(),identificacion.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri(),"s")
+    h = ob
+    print(h.getNombres())
+    print(h.getFechaExp())
 
-# btn = CTkButton(ventana,text="vive la vida",command=lambda:hola(p1))
-# btn.place(x=0,y=0)
+botonS=CTkButton(barra,width=300,height=50,fg_color="#deaaff",border_width=3,border_color="#5a189a",text="Guardar",font=("Ready For Fall",20),text_color="black",command=lambda:hola())
+botonS.place(x=300,y=730)
 
 
 

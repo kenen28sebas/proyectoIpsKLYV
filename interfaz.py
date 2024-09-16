@@ -3,15 +3,15 @@ from PIL import Image,ImageTk
 from customtkinter import *
 from tkcalendar import *
 from tkcalendar import *
-from clases.th import *
-from clases.personalM import *
+
 
 ventana = CTk(fg_color="white")
 ventana.title("personal medico")
 ventana.geometry("800x900")
 
-barra=CTkScrollableFrame(master=ventana,width=720,height=630,fg_color="white")
-barra.place(x=50,y=150)
+
+barra=CTkScrollableFrame(master=ventana,width=770,height=630,fg_color="white",corner_radius=5)
+barra.place(x=0,y=150)
 
 
 class OpcionesBig(CTkButton):
@@ -83,7 +83,7 @@ class Sipi(CTkFrame):
 
 
 
-p1=TalentoH("cc",12548,"20-05-2024","Bogota","jose alberto","perez","caedenas","03-12-2005","indefinido","travesti","3115698569","kdjskdks@gmail.com")
+
 
 
 
@@ -94,7 +94,10 @@ cuadrito = CTkFrame(
     master=ventana,
     width=800,
     height=150,
-    fg_color="#44E3D3"
+    fg_color="#cbf3f0",
+    border_width=5,
+    border_color="#2ec4b6"
+
 )
 
 cuadrito.place(x=0, y=0)  
@@ -119,6 +122,7 @@ lblformulario = CTkLabel(
     text=""
 )
 lblformulario.place(x=50, y=30)
+
 
 
 
@@ -153,8 +157,11 @@ class Nopi(CTkFrame):
         self.titulo=titulo
         ttlo=CTkLabel(self,text=self.titulo,font=("coolvetica rg",18))
         ttlo.place(x=20,y=12)
-        combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18))
-        combo.place(x=20,y=40)
+        self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18))
+        self.combo.place(x=20,y=40)
+
+    def getEntri(self):
+        return self.combo.get()
 
 
 class Date(CTkFrame):
@@ -167,6 +174,28 @@ class Date(CTkFrame):
         
         self.j = DateEntry(self, width=20, background='lightblue', foreground='black', borderwidth=2, font=('coolvetica rg', 12))
         self.j.grid(row=2, column=1,pady=5)
+    def getEntri(self):
+        return self.j.get()
+        
+class Calendario (CTkFrame):
+    def __init__(self, master):
+        super().__init__(master, width=1060, height=600, fg_color="white")
+        self.listaDias = CTkFrame(self,width=1020, height=50,corner_radius=0)
+        self.listaDias.place(x=20,y=0)
+        self.lblLunes = CTkLabel(self.listaDias,text="Lunes \n 5")
+        self.lblLunes.grid(row=0, column=1, pady=5,padx=50)
+        self.lblMartes = CTkLabel(self.listaDias,text="Martes")
+        self.lblMartes.grid(row=0, column=2, pady=5,padx=50)
+        self.lblMiercoles = CTkLabel(self.listaDias,text="Miercoles")
+        self.lblMiercoles.grid(row=0, column=3, pady=5,padx=50)
+        self.lblJueves = CTkLabel(self.listaDias,text="Jueves")
+        self.lblJueves.grid(row=0, column=4, pady=5,padx=50)
+        self.lblViernes = CTkLabel(self.listaDias,text="Viernes")
+        self.lblViernes.grid(row=0, column=5, pady=5,padx=50)
+        self.lblSabado = CTkLabel(self.listaDias,text="Sabado")
+        self.lblSabado.grid(row=0, column=6, pady=5,padx=50)
+        self.lblDomingo = CTkLabel(self.listaDias,text="Domingo")
+        self.lblDomingo.grid(row=0, column=7, pady=5,padx=50)
         
         
 

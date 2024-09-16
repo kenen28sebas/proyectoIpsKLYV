@@ -5,7 +5,7 @@ import pymongo
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["proyecto_kenenitos"]
 persona = mydb["Persona"]
-
+paciente = None
 def llenarobPaciente():
     global paciente
     paciente = Paciente(paciente["tipo de identificacion"],
@@ -44,21 +44,55 @@ def opcionePaciente():
     
     
     vnVusuario.destroy()
-    while True:
-        op1 = OpcionesBig(secction1,"nora","")
-        op1.place(x=20,y=300)
-        op2 = OpcionesBig(secction1,"nora","")
-        op2.place(x=320,y=300)
-        op3 = OpcionesBig(secction1,"nora","")
-        op3.place(x=620,y=300)
-        
 
+    op1 = OpcionesBig(secction1,"datos de el paciente",lambda:datosPaciente())
+    op1.place(x=20,y=300)
+    op2 = OpcionesBig(secction1,"consultar citas",lambda:consultarCitas())
+    op2.place(x=320,y=300)
+    op3 = OpcionesBig(secction1,"crear cita",lambda:crearCitas())
+    op3.place(x=620,y=300)
+    def datosPaciente():
+        op1.destroy()
+        op2.destroy()
+        op3.destroy()
+        sectionDatos = CTkFrame(secction1,width=860,height=410)
+        sectionDatos.place(x=5,y=5)
+    def consultarCitas():
+        pass
+    def crearCitas():
+        global header
+        op1.destroy()
+        op2.destroy()
+        op3.destroy()
+        secction1.destroy()
+        header.destroy()
+        ventana.geometry("1100x650")
+        
+        header=CTkFrame(
+            master=ventana,
+            width=1100,
+            height=100,
+            fg_color="#44E3D3",
+            corner_radius=0
+        )
+        header.place(x=0, y=0)
+        secctionC=CTkFrame(master=ventana,
+            width=1060,
+            height=510,
+            fg_color="#44E3D3")
+
+        secctionC.place(x=20,y=120)
+        agenda = Calendario(secctionC)
+        agenda.place(x=0,y=0)
+        
+        
+    
 
 ventana = CTk(fg_color="white")
 
 ventana.geometry("1000x650")
 
-paciente = None
+
 
 def prueba (p):
     print(p)
