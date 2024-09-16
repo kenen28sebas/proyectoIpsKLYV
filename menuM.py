@@ -35,7 +35,7 @@ titulo.place(x=500, y=40)
 
 
 
-formularioIm = Image.open("C:\\Users\\linit\\OneDrive\Escritorio\\proyectoIpsKLYV\\hp.png")
+formularioIm = Image.open("hp.png")
 formularioIm = formularioIm.resize((100, 100))
 imagen = CTkImage(light_image=formularioIm, size=(100, 100))
 
@@ -66,7 +66,7 @@ class Menu(CTkFrame):
         lblimg = CTkLabel(self, image=self.ctk_image, text="")
         lblimg.place(x=125, y=55)
 
-        self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
+        self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25),text_color="black")
         self.title_label.place(x=17, y=10)
 
     #     self.bind("<Button-1>", self.jajnxsj)
@@ -86,21 +86,29 @@ class Menu(CTkFrame):
 
 
 
-
+def prueba ():
+    print("jesus")
+    jose.destroy()
+    martha.destroy()
+    g = CTkFrame(ventana)
 
         
 boton=CTkButton(ventana,width=300,height=50,border_width=5,border_color="#7209b7",fg_color="#e7c6ff",text="Salir",text_color="black",font=("Ready For Fall",20),command=lambda:Salir())
 boton.place(x=470,y=400)
 
-jose=Menu(ventana,"Registrar personal medico",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\frm2.png")
+jose=Menu(ventana,"Registrar personal medico",350,170,"frm2.png")
 jose.place(x=50,y=150)
+jose.bind("<Button-1>",lambda v:prueba())
 
-martha=Menu(ventana,"Consultar hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\fml m.png")
+martha=Menu(ventana,"Consultar hoja de vida",350,170,"fml m.png")
 
 martha.place(x=450,y=150)
 
-eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\eduardo.png")
+eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"eduardo.png")
 eduardo.place(x=850,y=150)
+
+
+
 
 
 ventana.mainloop()

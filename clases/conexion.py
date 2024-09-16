@@ -1,4 +1,5 @@
 from th import *
+from paciente import *
 
 import pymongo
 cliente=pymongo.MongoClient("mongodb://localhost:27017/")
@@ -61,6 +62,14 @@ def llenarArchivo (objeto):
                 
         return archivo
     
+    
+def crearPaciente(objeto):
+    archivoPa ={
+        "tipo_documento": ""
+        
+    }
+    
+    
 print("hola")
 
 p1=TalentoH("CC", 11936212, "12-07-2002", "Cali", "Jose Daniel", "Cardenas", "Contreras", "05-03-1977", "hombre", "masculino","3124564567", "jose.cotreras@gmail.com" )
@@ -69,3 +78,6 @@ pm5 = p1.crearPm("CC", 11936212, "12-07-2002", "Cali", "Jose Daniel", "Cardenas"
 pm5.setAcademicos("Doctor", "Sena", "15-01-2001", "30-12-2006" )
 
 med.insert_one(llenarArchivo(pm5))
+
+# p1= Paciente("CC", 1030547698, "10-03-2024", "Fusagasuga", "Ana del carmen", "Sanabria", "Redondo", "03-04-1872","trans", "femenino", "312456789","Anaredondo@gmail.com", "B-", "casada", "desplazado", "desempleado","beneficiario","subsidiado", "uno","Nueva Eps", "Venezolana")
+# p1.getApellido1()

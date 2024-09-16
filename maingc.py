@@ -35,7 +35,7 @@ def buscarPaciente(master,noD,eventoP):
         global paciente
         paciente = busqueda[0]
     except:
-        usuario.destroy()
+        # usuario.destroy()
         tituloError = CTkLabel(vnVusuario,text="No se encontro el páciente")
         tituloError.place(x=150,y=250)
 
