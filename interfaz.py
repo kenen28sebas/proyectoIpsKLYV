@@ -16,7 +16,7 @@ barra.place(x=0,y=150)
 
 class OpcionesBig(CTkButton):
     def __init__(self, master, titulo, evento):
-        super().__init__(master, text=titulo, width=200, height=200, command=evento)
+        super().__init__(master, text=titulo, width=200, height=100, command=evento)
         self.lbl = CTkLabel(self, text=titulo)
         self.lbl.place(x=100,y=200)
         

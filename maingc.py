@@ -45,23 +45,14 @@ def opcionePaciente():
     
     vnVusuario.destroy()
 
-    op1 = OpcionesBig(secction1,"datos de el paciente",lambda:datosPaciente())
-    op1.place(x=20,y=300)
     op2 = OpcionesBig(secction1,"consultar citas",lambda:consultarCitas())
-    op2.place(x=320,y=300)
+    op2.place(x=220,y=300)
     op3 = OpcionesBig(secction1,"crear cita",lambda:crearCitas())
-    op3.place(x=620,y=300)
-    def datosPaciente():
-        op1.destroy()
-        op2.destroy()
-        op3.destroy()
-        sectionDatos = CTkFrame(secction1,width=860,height=410)
-        sectionDatos.place(x=5,y=5)
+    op3.place(x=520,y=300)
     def consultarCitas():
         pass
     def crearCitas():
         global header
-        op1.destroy()
         op2.destroy()
         op3.destroy()
         secction1.destroy()
