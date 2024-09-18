@@ -1,5 +1,5 @@
 from typing import Any, Tuple
-from PIL import Image,ImageTk
+# from PIL import Image,ImageTk
 from customtkinter import *
 from tkcalendar import *
 from tkcalendar import *
@@ -112,16 +112,15 @@ titulo = CTkLabel(
 titulo.place(x=280, y=50)  
 
 
-formularioIm = Image.open("formulario.png")
-formularioIm = formularioIm.resize((100, 100))
-imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+# formularioIm = Image.open("C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\formulario.png")
+# formularioIm = formularioIm.resize((100, 100))
 
-lblformulario = CTkLabel(
-    master=cuadrito, 
-    image=imagen,
-    text=""
-)
-lblformulario.place(x=50, y=30)
+
+# imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+
+
+# lblformulario = CTkLabel(master=cuadrito, image=imagen, text="")
+# lblformulario.place(x=50, y=30)
 
 
 
