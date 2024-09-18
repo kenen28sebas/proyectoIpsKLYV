@@ -3,6 +3,7 @@ from PIL import Image,ImageTk
 from customtkinter import *
 from tkcalendar import *
 from tkcalendar import *
+import datetime
 
 
 ventana = CTk(fg_color="white")
@@ -176,14 +177,27 @@ class Date(CTkFrame):
         self.j.grid(row=2, column=1,pady=5)
     def getEntri(self):
         return self.j.get()
+    
+class Ctcita (CTkFrame):
+    def __init__(self, master,hora,nombre):
+        super().__init__(master,width=151,height=30,fg_color="white")  
+        lblFecha = CTkLabel(self,text=hora,text_color="black")
+        lblFecha.place(x=100,y=10)
+        lblNombre = CTkLabel(self,text=nombre,text_color="black")
+        lblNombre.place(x=10,y=10)
+        
+    def getter (self): 
+        return self.lblFecha.cget("text")   
+        
+         
         
 class Calendario (CTkFrame):
-    def __init__(self, master):
-        super().__init__(master, width=1060, height=600, fg_color="white")
+    def __init__(self, master,citas,evento):
+        super().__init__(master, width=1060, height=720, fg_color="white")
         self.listaDias = CTkFrame(self,width=1020, height=50,corner_radius=0)
         self.listaDias.place(x=20,y=0)
-        self.lblLunes = CTkLabel(self.listaDias,text="Lunes \n 5")
-        self.lblLunes.grid(row=0, column=1, pady=5,padx=50)
+        self.lblDIa = CTkLabel(self.listaDias,text=f'lunes /n 22')
+        self.lblDIa.grid(row=0, column=1, pady=5,padx=50)
         self.lblMartes = CTkLabel(self.listaDias,text="Martes")
         self.lblMartes.grid(row=0, column=2, pady=5,padx=50)
         self.lblMiercoles = CTkLabel(self.listaDias,text="Miercoles")
@@ -196,9 +210,25 @@ class Calendario (CTkFrame):
         self.lblSabado.grid(row=0, column=6, pady=5,padx=50)
         self.lblDomingo = CTkLabel(self.listaDias,text="Domingo")
         self.lblDomingo.grid(row=0, column=7, pady=5,padx=50)
+        self.divLunes = CTkFrame(self,width=151,height=669)
+        self.divLunes.place(x=20,y=51)
+        hora = datetime.datetime(2000,1,1,7,40)
+    
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            for i in citas:
+                if i.getHoraConsulta() == horaFinal:
+                    self.cita = Ctcita(self.divLunes,horaFinal,i.getMedico())
+                    self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
+                    break
+                else:
+                    self.cita = Ctcita(self.divLunes,horaFinal,"Vacio")
+                    self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                    self.cita.bind("<Button-1>",evento) 
+            
+           
         
-        
-
-
-
-
