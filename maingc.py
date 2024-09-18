@@ -1,11 +1,45 @@
 from interfaz import*
 from clases.paciente import * 
 import pymongo
+from clases.agenda import *
+from clases.Cita import * 
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["proyecto_kenenitos"]
 persona = mydb["Persona"]
+cita = basedatos["Cita"]
 paciente = None
+listacitas =[]
+año = datetime.datetime.now().year
+mes = datetime.datetime.now().month
+dia = datetime.datetime.now().day
+fecha = datetime.datetime(2024,9,24,8,20)
+def llenarobCita():
+    global listacitas,fecha
+    cu = cita.find({"fecha_cita": "2024,9,24"}).sort("fecha_cita", pymongo.ASCENDING)
+    for i in cu:
+        
+        citas = Cita(fecha,"","",cita)
+        citas.setDatosdb(
+            i["no_cita"],
+            i["vigencia"],
+            i["fecha_creacion"],
+            i["fecha_cita"],
+            i["medico"],
+            i["consultorio"],
+            i["hora_consulta"],
+            i["hora_f"]
+        )
+        listacitas.append(citas)
+
+
+
+llenarobCita()
+
+
+print(listacitas)
+
+
 def llenarobPaciente():
     global paciente
     paciente = Paciente(paciente["tipo de identificacion"],
@@ -46,9 +80,9 @@ def opcionePaciente():
     vnVusuario.destroy()
 
     op2 = OpcionesBig(secction1,"consultar citas",lambda:consultarCitas())
-    op2.place(x=220,y=300)
+    op2.place(x=220,y=350)
     op3 = OpcionesBig(secction1,"crear cita",lambda:crearCitas())
-    op3.place(x=520,y=300)
+    op3.place(x=520,y=350)
     def consultarCitas():
         pass
     def crearCitas():
@@ -71,22 +105,27 @@ def opcionePaciente():
             width=1060,
             height=510,
             fg_color="#44E3D3")
-
         secctionC.place(x=20,y=120)
-        agenda = Calendario(secctionC)
+        agenda = Calendario(secctionC,listacitas,lambda v :confirmarCita())
         agenda.place(x=0,y=0)
         
+            
         
     
 
 ventana = CTk(fg_color="white")
 
 ventana.geometry("1000x650")
+def confirmarCita():
+            vnCita = CTkToplevel(ventana, width=400, height=400)
+            vnCita.lift()
+            vnCita.attributes('-topmost', True)
+            cajaTexto = Sipi(vnCita,"No de documento",320, 80, 280)
+            cajaTexto.place(x=40,y=90) 
 
 
-
-def prueba (p):
-    print(p)
+def prueba ():
+    print("hola")
 
 header=CTkFrame(
     master=ventana,
@@ -104,9 +143,12 @@ secction1.place(x=20,y=120)
 header.place(x=0, y=0)
 
 vnVusuario = CTkToplevel(ventana, width=400, height=400)
-
+vnVusuario.lift()
+vnVusuario.attributes('-topmost', True)
 titulo = CTkLabel(vnVusuario,text="Buscar paciente")
 titulo.place(x=150,y=40)
+
+
 
 cajaTexto = Sipi(vnVusuario,"No de documento",320, 80, 280)
 cajaTexto.place(x=40,y=90) 

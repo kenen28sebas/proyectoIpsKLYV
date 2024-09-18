@@ -1,16 +1,30 @@
 import datetime
+from clases.agendaDia import *
 class Agenda ():
-    def __init__(self,ano,mes,dia,semana):
+    def __init__(self,ano,mes,dia):
         self.ano = datetime.date(ano,mes,dia).year 
         self.mes = datetime.date(ano,mes,dia).month 
-        self.semana = datetime.data(ano,mes,dia).isocalendar()[1]
-    def semanas (self):
-        semanas = datetime.timedelta(weeks=52)
+        self.semana = datetime.date(ano,mes,dia).isocalendar()[1]
+        self._dias = []
+        self.dia = dia
+    def getsemanas (self):
+        return self.semana
         
-    def diasSemanas (self):
-        dias = []
+    def getdiasSemanas (self):
+        return self._dias
         
+    def setSigSemana(self):
+        ano = self.ano
+        mes = self.mes  
         
+    def getDiasSemanas (self,indice):
+        return self._dias[indice]     
+        
+    def setDia(self,dia): 
+        if len(self._dias) < 8:
+            dia = AgendaDia(self.ano,self.mes,dia )
+            self._dias.append(dia)
+            
         
         
 # o = Agenda(2024,9,13,2)  
@@ -25,28 +39,14 @@ class Agenda ():
 # nueva_fecha = fecha_actual + datetime.timedelta(weeks=2)
 # print("Fecha después de 2 semanas:", nueva_fecha)
 
+
 # Obtener la fecha actual
-fecha_actual = datetime.datetime(2023,1,10)
+año = datetime.datetime.now().year
+mes = datetime.datetime.now().month
+dia = datetime.datetime.now().day
 
-# Obtener el número de la semana del año
-numero_semana = fecha_actual.isocalendar()[1]
+ob = Agenda(año,mes,dia)
 
-semanas = datetime.timedelta(weeks=2)
-
-print(f"Estamos en la semana número {numero_semana} del año.")
-
-print(semanas)
-
-# Obtener la fecha y hora actual
-fecha_actual = datetime.datetime.now()
-
-# Obtener el número correspondiente al día de la semana (lunes: 0, domingo: 6)
-dia_semana = fecha_actual.weekday()
-
-# Definir una lista con los nombres de los días de la semana
-nombres_dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
-
-# Mostrar el día de la semana actual
-print(dia_semana)
+print(ob.ano)
 
 
