@@ -179,8 +179,8 @@ class Date(CTkFrame):
         return self.j.get()
     
 class Ctcita (CTkFrame):
-    def __init__(self, master,hora,nombre):
-        super().__init__(master,width=151,height=30,fg_color="white")  
+    def __init__(self, master,hora,nombre,color):
+        super().__init__(master,width=151,height=30,fg_color=color)  
         lblFecha = CTkLabel(self,text=hora,text_color="black")
         lblFecha.place(x=100,y=10)
         lblNombre = CTkLabel(self,text=nombre,text_color="black")
@@ -192,7 +192,7 @@ class Ctcita (CTkFrame):
          
         
 class Calendario (CTkFrame):
-    def __init__(self, master,citas,evento):
+    def __init__(self, master,citasl,citasm,citasmi,citasj,citasv,citass,citasd,evento):
         super().__init__(master, width=1060, height=720, fg_color="white")
         self.listaDias = CTkFrame(self,width=1020, height=50,corner_radius=0)
         self.listaDias.place(x=20,y=0)
@@ -210,8 +210,23 @@ class Calendario (CTkFrame):
         self.lblSabado.grid(row=0, column=6, pady=5,padx=50)
         self.lblDomingo = CTkLabel(self.listaDias,text="Domingo")
         self.lblDomingo.grid(row=0, column=7, pady=5,padx=50)
+        
+        
         self.divLunes = CTkFrame(self,width=151,height=669)
         self.divLunes.place(x=20,y=51)
+        self.divmartes = CTkFrame(self,width=151,height=669)
+        self.divmartes.place(x=172,y=51)
+        self.divmiercoles = CTkFrame(self,width=151,height=669)
+        self.divmiercoles.place(x=324,y=51)
+        self.divjueves = CTkFrame(self,width=151,height=669)
+        self.divjueves.place(x=476,y=51)
+        self.divviernes = CTkFrame(self,width=151,height=669)
+        self.divviernes.place(x=628,y=51)
+        self.divsabado = CTkFrame(self,width=151,height=669)
+        self.divsabado.place(x=760,y=51)
+        self.divdomingo = CTkFrame(self,width=151,height=669)
+        self.divdomingo.place(x=912,y=51)
+        
         hora = datetime.datetime(2000,1,1,7,40)
     
         for ind in range(0,11):
@@ -220,15 +235,149 @@ class Calendario (CTkFrame):
             if minuto == 0:
                 minuto = "00"
             horaFinal = f'{hora.hour}:{minuto}'
-            for i in citas:
+            texto = ""
+            for i in citasl:
+                print(f'{i.getMedico()} lunes ')
                 if i.getHoraConsulta() == horaFinal:
-                    self.cita = Ctcita(self.divLunes,horaFinal,i.getMedico())
-                    self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
+                    texto = i.getMedico()
                     break
-                else:
-                    self.cita = Ctcita(self.divLunes,horaFinal,"Vacio")
-                    self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
-                    self.cita.bind("<Button-1>",evento) 
-            
+            if texto == "":    
+                self.cita = Ctcita(self.divLunes,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divLunes,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
+
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citasm:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divmartes,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divmartes,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citasmi:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divmiercoles,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divmiercoles,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)  
+                
+                        
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citasj:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divjueves,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divjueves,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)  
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citasv:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divviernes,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divviernes,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citass:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divsabado,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divsabado,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)  
+                
+                        
+        hora = datetime.datetime(2000,1,1,7,40)
+        
+        for ind in range(0,11):
+            hora = hora + datetime.timedelta(minutes=20)
+            minuto = hora.minute
+            if minuto == 0:
+                minuto = "00"
+            horaFinal = f'{hora.hour}:{minuto}'
+            texto = ""
+            for i in citasd:
+                print(f'{i.getMedico()} lunes ')
+                if i.getHoraConsulta() == horaFinal:
+                    texto = i.getMedico()
+                    break
+            if texto == "":    
+                self.cita = Ctcita(self.divdomingo,horaFinal,"Vacio","white")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
+                self.cita.bind("<Button-1>",evento) 
+            elif len(texto) > 1 :
+                self.cita = Ctcita(self.divdomingo,horaFinal,texto,"green")
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)          
            
         

@@ -14,11 +14,12 @@ año = datetime.datetime.now().year
 mes = datetime.datetime.now().month
 dia = datetime.datetime.now().day
 fecha = datetime.datetime(2024,9,24,8,20)
-def llenarobCita():
+def llenarobCita(fechad):
     global listacitas,fecha
-    cu = cita.find({"fecha_cita": "2024,9,24"}).sort("fecha_cita", pymongo.ASCENDING)
+    listacitas =[]
+    cu = cita.find({"fecha_cita": fechad}).sort("fecha_cita", pymongo.ASCENDING)
     for i in cu:
-        
+        # print(i["fecha_creacion"].split(","))
         citas = Cita(fecha,"","",cita)
         citas.setDatosdb(
             i["no_cita"],
@@ -31,13 +32,20 @@ def llenarobCita():
             i["hora_f"]
         )
         listacitas.append(citas)
+    return listacitas
 
 
 
-llenarobCita()
+
+agenda = Agenda(año,mes,23)
+for i in range(0,7):
+    agenda.setDia(i+23)
+    lis = llenarobCita(f'{año},{mes},{i+23}')
+    agenda.getDiasSemanas(i).setCitas(lis)
+
+        
 
 
-print(listacitas)
 
 
 def llenarobPaciente():
@@ -86,7 +94,7 @@ def opcionePaciente():
     def consultarCitas():
         pass
     def crearCitas():
-        global header
+        global header,agenda
         op2.destroy()
         op3.destroy()
         secction1.destroy()
@@ -106,7 +114,7 @@ def opcionePaciente():
             height=510,
             fg_color="#44E3D3")
         secctionC.place(x=20,y=120)
-        agenda = Calendario(secctionC,listacitas,lambda v :confirmarCita())
+        agenda = Calendario(secctionC,agenda.getDiasSemanas(0).getCitas(),agenda.getDiasSemanas(1).getCitas(),agenda.getDiasSemanas(2).getCitas(),agenda.getDiasSemanas(3).getCitas(),agenda.getDiasSemanas(4).getCitas(),agenda.getDiasSemanas(5).getCitas(),agenda.getDiasSemanas(6).getCitas(),lambda v :confirmarCita())
         agenda.place(x=0,y=0)
         
             
@@ -120,8 +128,12 @@ def confirmarCita():
             vnCita = CTkToplevel(ventana, width=400, height=400)
             vnCita.lift()
             vnCita.attributes('-topmost', True)
-            cajaTexto = Sipi(vnCita,"No de documento",320, 80, 280)
-            cajaTexto.place(x=40,y=90) 
+            cajaTexto = Sipi(vnCita,"doctor",320, 80, 280)
+            cajaTexto.place(x=40,y=20) 
+            cajaTexto = Sipi(vnCita,"consultorio",320, 80, 280)
+            cajaTexto.place(x=40,y=120) 
+            btncargarCita = CTkButton(vnCita,text="cargar")
+            btncargarCita.place(x=130,y =220)
 
 
 def prueba ():

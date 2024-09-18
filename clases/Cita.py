@@ -68,7 +68,7 @@ class Cita ():
         self.hora = datosdb8
 
     
-l = datetime.datetime(2024,9,25,8,0)   
+l = datetime.datetime(2024,9,25,8,20)   
 
 
     
