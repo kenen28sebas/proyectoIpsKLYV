@@ -1,4 +1,4 @@
-from conexion import *
+
 class Persona:
     def __init__(self,tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email):
         self.__tipo_doc = tipo_doc
