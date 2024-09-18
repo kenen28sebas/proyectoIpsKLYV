@@ -1,4 +1,4 @@
-from clases.persona import *
+from .persona import Persona
 class Paciente (Persona):
     
     def __init__(self, tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email,Rh,estado_civil, tp_atencionEspecial,ocupacion,tp_afiliado,regimen,estrato,Eps, nacionalidad):
