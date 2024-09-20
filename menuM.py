@@ -4,6 +4,13 @@ from PIL import Image,ImageTk
 import pymongo
 # from interfaz import *
 from tkcalendar import *
+from interfaz import *
+from clases.paciente import *
+from clases.personalM import *
+from clases.persona import *
+
+
+
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 myDb=myclient["proyecto_IPS"]
@@ -69,6 +76,9 @@ def main():
     jose2.bind("<Button-1>",lambda v:RegistrarP())
 
 
+
+
+    
     def atrasM():
         main()
 
@@ -82,7 +92,7 @@ def main():
     def consultarhv():
         jose2.destroy()
         martha.destroy()
-        eduardo.destroy()
+        # eduardo.destroy()
         cuadrito.destroy()
         
         
@@ -114,8 +124,21 @@ def main():
         boton2=CTkButton(frame,border_width=3,border_color="#60d394",fg_color="#d9fff8",text="Buscar",height=40,text_color="black",font=("Ready For Fall",20),command=lambda:buscarhv(caja.get()))
         boton2.place(x=350,y=150)
 
-        boton3=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70,command=lambda:atrasM())
-        boton3.place(x=50,y=200)
+        # boton3=CTkButton(frame,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70,command=lambda:atrasM())
+        # boton3.place(x=1000,y=40)
+
+        # atras=Image.open("atras.jpg")
+        # atras=atras.resize((80,80))
+        # atrass=CTkImage(light_image=atras,size=(80,80))
+
+        # lblatras=CTkLabel(
+        #     master=boton3,
+        #     image=atrass,
+        #     text=""
+
+        # )
+        # lblatras.place(x=40,y=15)
+
 
         img2=Image.open("jose.png")
         img2=img2.resize((100,100))
@@ -127,6 +150,10 @@ def main():
             text=""
         )
         lblimg2.place(x=40,y=15)
+
+        # def actualizar_hv():
+        #     eduardo.destroy()
+        #     cuadrito2.destroy()
 
 
 
@@ -141,8 +168,9 @@ def main():
         #     print(i)
         
 
+
         frame2=CTkFrame(ventana,width=320,height=150,border_width=5,border_color="#5a189a",fg_color="#dbcae9")
-        frame2.place(x=500,y=150)
+        frame2.place(x=50,y=250)
         
         texto=CTkLabel(frame2,text=f'Nombre:{documentos[0]["nombres"]}',text_color="black",font=("Ready For Fall",22))
         texto.place(x=50,y=90)
@@ -160,13 +188,22 @@ def main():
         # boton3.place(x=90,y=80)
         frame2.bind("<Button-1>",lambda v:jose())
 
+
+
+
+
+
+
+
         
         
-       
+
         def jose():
+            
             frame2.destroy()
 
             ventana.geometry("1250x650")
+
             
 
             frame3=CTkFrame(ventana,width=500,height=450,fg_color="white")
@@ -178,9 +215,14 @@ def main():
 
             tp_id=CTkLabel(frame3,text=f"Tipo de identificacion:{documentos[0]["tipo_documento"]}",text_color="black",font=("Ready For Fall",20))
             tp_id.place(x=40,y=30)
+            
 
             ide=CTkLabel(frame3,text=f"Identificacion:{documentos[0]["identificacion"]}",text_color="black",font=("Ready For Fall",20))
             ide.place(x=40,y=60)
+            
+            
+            
+            
 
             fechaE=CTkLabel(frame3,text=f"Fecha de expedicion:{documentos[0]["fecha_expedicion"]}",text_color="black",font=("Ready For Fall",20))
             fechaE.place(x=40,y=90)
@@ -413,16 +455,35 @@ def main():
         telefono = Sipi(frame1, "Teléfono:", 250, 100, 200)
         telefono.place(x=800,y=240)
 
-        btnguardar=CTkButton(frame1,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black")
-        btnguardar.place(x=70,y=400)
+        especialidad=Sipi(frame1,"Especialidad:",250,100,200)
+        especialidad.place(x=50,y=340)
+
+        btnguardar=CTkButton(frame1,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarMedico())
+        btnguardar.place(x=70,y=480)
 
         reaca=CTkFrame(frame1,width=340,height=80,border_width=5,border_color="#fb6f92",fg_color="#ffd6ff")
 
-        reaca.place(x=280,y=400)
+        reaca.place(x=280,y=450)
         reaca.bind("<Button-1>",lambda v:reacademicos())
 
         jijiji=CTkLabel(reaca,text="Registrar informacion academica",text_color="black",font=("Papernotes",25))
         jijiji.place(x=10,y=25)
+
+
+        # ob=Medicos(tip_doc.getEntri)
+
+        ob = None
+
+        # ob.setExpLaboral()
+        def registrarMedico():
+            global ob
+            ob=Medicos(tip_doc.getEntri(),identificacionn.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),fecha_na.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
+            print(ob.getNombres())
+
+
+
+            
+
 
 
 
@@ -442,7 +503,7 @@ def main():
 
 
         def reacademicos():
-            global framejose
+            # global framejose
             perm.destroy()
             frame1.destroy()
             ventana.geometry("1250x700")
@@ -479,10 +540,10 @@ def main():
             fechafin=Date(framejose,"Fecha de finalización")
             fechafin.place(x=800,y=50)
 
-            especialidad=Sipi(framejose,"Especialización",250,100,200)
-            especialidad.place(x=50,y=150)
+            # especialidad=Sipi(framejose,"Especialización",250,100,200)
+            # especialidad.place(x=50,y=150)
 
-            btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black")
+            btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarAcdd())
             btnguardar.place(x=550,y=260)
 
             reexl=CTkFrame(ventana,width=340,height=80,border_width=5,border_color="#0a9396",fg_color="#90e0ef")
@@ -491,6 +552,11 @@ def main():
 
             titulo1=CTkLabel(reexl,text="Registrar experiencia laboral",text_color="black",font=("Papernotes",25))
             titulo1.place(x=10,y=25)
+
+            def registrarAcdd():
+                global ob
+
+                ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
 
             def registrarEl():
                 reexl.destroy()
@@ -517,11 +583,11 @@ def main():
             frameel=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
             frameel.place(x=25,y=150)
 
-            tituloa1=Sipi(frameel,"Titulo:",250,100,200)
-            tituloa1.place(x=50,y=50)
+            empresa=Sipi(frameel,"Empresa:",250,100,200)
+            empresa.place(x=50,y=50)
 
-            institucion1=Sipi(frameel,"Empresa:",250,100,200)
-            institucion1.place(x=300,y=50)
+            cargo=Sipi(frameel,"Cargo:",250,100,200)
+            cargo.place(x=300,y=50)
 
             fehcaini1=Date(frameel,"Fecha inicio:")
             fehcaini1.place(x=600,y=50)
@@ -529,11 +595,30 @@ def main():
             fechafin1=Date(frameel,"Fecha de finalización:")
             fechafin1.place(x=800,y=50)
 
-            especialidad1=Sipi(frameel,"Especialización:",250,100,200)
-            especialidad1.place(x=50,y=150)
+            # especialidad1=Sipi(frameel,"Especialización:",250,100,200)
+            # especialidad1.place(x=50,y=150)
 
-            btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black")
+            btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registraExpl())
             btnguardar1.place(x=550,y=260)
+
+            def registraExpl():
+                global ob
+
+                ob.setExpLaboral(empresa.getEntri(),cargo.getEntri(),fechafin1.getEntri(),fechafin1.getEntri())
+
+
+
+            # def actualizarhv():
+            #     eduardo.destroy()
+            #     frame2.destroy()
+
+
+
+
+    
+
+                
+
 
 
 
@@ -554,7 +639,10 @@ def main():
 
     eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\eduardo.png")
     eduardo.place(x=850,y=150)
-    eduardo.bind("<Button-1>",lambda v:consultarhv())
+    # eduardo.bind("<Button-1>",lambda v:actualizar_hv())
+
+
+
 
 
 
@@ -600,6 +688,8 @@ class Sipi(CTkFrame):
         tituloE.place(x=20,y=12)
         self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
         self.caja.place(x=20,y=50)
+    def getEntri(self):
+        return self.caja.get()
 
 
 

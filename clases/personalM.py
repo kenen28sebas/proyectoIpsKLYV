@@ -1,6 +1,6 @@
-from persona import *
-from Experiencia_laboral import *
-from academicos import *
+from clases.persona import *
+from clases.Experiencia_laboral import *
+from clases.academicos import *
 
 class Medicos(Persona):
     def __init__(self, tipo_doc, identificacion, fecha_exp, lugar_exp, nombres, apellido1, apellido2, fecha_nacimiento, genero, sexo, telefono, email,especialidad):
