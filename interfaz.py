@@ -1,7 +1,6 @@
 from typing import Any, Tuple
-from PIL import Image,ImageTk
+
 from customtkinter import *
-from tkcalendar import *
 from tkcalendar import *
 import datetime
 
@@ -48,12 +47,12 @@ class Usuario(CTkButton):
 
 class Sipi(CTkFrame):
     def __init__(self, master,titulo,ancho,largo,largo2):
-        super().__init__(master, width=ancho,height=largo,fg_color="white")
+        super().__init__(master, width=ancho,height=largo,fg_color="white",border_width=3,border_color="#5a189a")
         self.titulo=titulo
         tituloE = CTkLabel(self,text=self.titulo,font=("coolvetica rg",20),text_color="black")
-        tituloE.place(x=20,y=0)
+        tituloE.place(x=20,y=10)
         self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
-        self.caja.place(x=20,y=30)
+        self.caja.place(x=20,y=40)
 
         
         # self.caja = CTkEntry(self, border_color="#38184C", border_width=3, width=largo2)
@@ -91,38 +90,40 @@ class Sipi(CTkFrame):
 
 
 
-cuadrito = CTkFrame(
-    master=ventana,
-    width=800,
-    height=150,
-    fg_color="#cbf3f0",
-    border_width=5,
-    border_color="#2ec4b6"
+# cuadrito = CTkFrame(
+#     master=ventana,
+#     width=800,
+#     height=150,
+#     fg_color="#cbf3f0",
+#     border_width=5,
+#     border_color="#2ec4b6"
 
-)
+# )
 
-cuadrito.place(x=0, y=0)  
-
-
-titulo = CTkLabel(
-    master=cuadrito, 
-    text="Registro del Médico",
-    text_color="black",
-    font=("coolvetica rg", 30)
-)
-titulo.place(x=280, y=50)  
+# cuadrito.place(x=0, y=0)  
 
 
-formularioIm = Image.open("formulario.png")
-formularioIm = formularioIm.resize((100, 100))
-imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+# titulo = CTkLabel(
+#     master=cuadrito, 
+#     text="Registro del Médico",
+#     text_color="black",
+#     font=("coolvetica rg", 30)
+# )
+# titulo.place(x=280, y=50)  
 
-lblformulario = CTkLabel(
-    master=cuadrito, 
-    image=imagen,
-    text=""
-)
-lblformulario.place(x=50, y=30)
+
+# formularioIm = Image.open("formulario.png")
+# formularioIm = formularioIm.resize((100, 100))
+# imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+
+# lblformulario = CTkLabel(
+#     master=cuadrito, 
+#     image=imagen,
+#     text=""
+# )
+# lblformulario.place(x=50, y=30)
+
+
 
 
 
@@ -378,6 +379,4 @@ class Calendario (CTkFrame):
                 self.cita.bind("<Button-1>",evento) 
             elif len(texto) > 1 :
                 self.cita = Ctcita(self.divdomingo,horaFinal,texto,"green")
-                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)          
-           
-        
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)   
