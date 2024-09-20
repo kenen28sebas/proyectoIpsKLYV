@@ -30,7 +30,7 @@ titulo.place(x=280, y=40)
 
 
 
-formularioIm = Image.open("C:\\Users\\linit\\OneDrive\Escritorio\\proyectoIpsKLYV\\hp.png")
+formularioIm = Image.open("hp.png")
 formularioIm = formularioIm.resize((100, 100))
 imagen = CTkImage(light_image=formularioIm, size=(100, 100))
 
