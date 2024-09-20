@@ -1,7 +1,6 @@
 from typing import Any, Tuple
-from PIL import Image,ImageTk
+
 from customtkinter import *
-from tkcalendar import *
 from tkcalendar import *
 import datetime
 
@@ -91,38 +90,40 @@ class Sipi(CTkFrame):
 
 
 
-cuadrito = CTkFrame(
-    master=ventana,
-    width=800,
-    height=150,
-    fg_color="#cbf3f0",
-    border_width=5,
-    border_color="#2ec4b6"
+# cuadrito = CTkFrame(
+#     master=ventana,
+#     width=800,
+#     height=150,
+#     fg_color="#cbf3f0",
+#     border_width=5,
+#     border_color="#2ec4b6"
 
-)
+# )
 
-cuadrito.place(x=0, y=0)  
-
-
-titulo = CTkLabel(
-    master=cuadrito, 
-    text="Registro del Médico",
-    text_color="black",
-    font=("coolvetica rg", 30)
-)
-titulo.place(x=280, y=50)  
+# cuadrito.place(x=0, y=0)  
 
 
-formularioIm = Image.open("formulario.png")
-formularioIm = formularioIm.resize((100, 100))
-imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+# titulo = CTkLabel(
+#     master=cuadrito, 
+#     text="Registro del Médico",
+#     text_color="black",
+#     font=("coolvetica rg", 30)
+# )
+# titulo.place(x=280, y=50)  
 
-lblformulario = CTkLabel(
-    master=cuadrito, 
-    image=imagen,
-    text=""
-)
-lblformulario.place(x=50, y=30)
+
+# formularioIm = Image.open("formulario.png")
+# formularioIm = formularioIm.resize((100, 100))
+# imagen = CTkImage(light_image=formularioIm, size=(100, 100))
+
+# lblformulario = CTkLabel(
+#     master=cuadrito, 
+#     image=imagen,
+#     text=""
+# )
+# lblformulario.place(x=50, y=30)
+
+
 
 
 
