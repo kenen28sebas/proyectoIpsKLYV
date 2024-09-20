@@ -1,6 +1,7 @@
 from typing import Any, Tuple
 from customtkinter import *
 from PIL import Image,ImageTk
+
 import pymongo
 # from interfaz import *
 from tkcalendar import *
@@ -8,8 +9,7 @@ from interfaz import *
 from clases.paciente import *
 from clases.personalM import *
 from clases.persona import *
-# from tkinter import*
-import tkinter as tk
+
 
 
 
@@ -55,17 +55,16 @@ def main():
 
 
 
+    global formularioIm2,imagen
+    formularioIm2 = Image.open("hp.png")
+    formularioIm2 = formularioIm2.resize((100, 100))
 
-    # formularioIm2= Image.open("hp.png")
-    # formularioIm2 = formularioIm2.resize((100, 100))
-    # imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
+    # Crear una referencia para que la imagen no se recolecte
+    imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
 
-    # lblformulario2 = CTkLabel(
-    #     master=cuadrito, 
-    #     image=imagen,
-    #     text=""
-    # )
-    # lblformulario2.place(x=40, y=10)
+    # Crear un label y asignarle la imagen
+    lblformulario2 = CTkLabel(master=cuadrito, image=imagen, text="")
+    lblformulario2.place(x=40, y=10)
 
     
 
@@ -141,16 +140,16 @@ def main():
         # lblatras.place(x=40,y=15)
 
 
-        img2=Image.open("jose.png")
-        img2=img2.resize((100,100))
-        imagen2=CTkImage(light_image=img2,size=(100,100))
+        # img2=Image.open("jose.png")
+        # img2=img2.resize((100,100))
+        # imagen2=CTkImage(light_image=img2,size=(100,100))
 
-        lblimg2=CTkLabel(
-            master=cuadrito2,
-            image=imagen2,
-            text=""
-        )
-        lblimg2.place(x=40,y=15)
+        # lblimg2=CTkLabel(
+        #     master=cuadrito2,
+        #     image=imagen2,
+        #     text=""
+        # )
+        # lblimg2.place(x=40,y=15)
 
         # def actualizar_hv():
         #     eduardo.destroy()
@@ -274,7 +273,7 @@ def main():
             aca.place(x=50,y=10)
 
 
-            
+            global img3
             img3= Image.open("academicos.png")
             img3 = img3.resize((80, 80))
             imagen3 = CTkImage(light_image=img3, size=(80, 80))
@@ -405,16 +404,16 @@ def main():
         lbltitulo=CTkLabel(perm,text="Registrar personal medico",text_color="black",font=("Ready For Fall",35))
         lbltitulo.place(x=410,y=50)
 
-        imgfr= Image.open("personita.png")
-        imgfr = imgfr.resize((120, 120))
-        imagen5 = CTkImage(light_image=imgfr,size=(120, 120))
+        # imgfr= Image.open("personita.png")
+        # imgfr = imgfr.resize((120, 120))
+        # imagen5 = CTkImage(light_image=imgfr, size=(120, 120))
 
-        lblformulario2 = CTkLabel(
-            master=perm, 
-            image=imagen5,
-            text=""
-        )
-        lblformulario2.place(x=70, y=10)
+        # lblformulario2 = CTkLabel(
+        #     master=perm, 
+        #     image=imagen5,
+        #     text=""
+        # )
+        # lblformulario2.place(x=70, y=10)
 
         frame1=CTkFrame(ventana,width=1250,height=550,fg_color="white")
         frame1.place(x=0,y=150)
@@ -793,5 +792,6 @@ class Date(CTkFrame):
 
 
 
-
-main()
+if __name__ == '__main__':
+    ejemplo = main()
+    ejemplo.mainloop()
