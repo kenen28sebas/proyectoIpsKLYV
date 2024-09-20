@@ -5,6 +5,7 @@ from PIL import Image
 ventanita =CTk(fg_color="white")
 ventanita.title("Menu personal medico")
 ventanita.geometry("1250x500")
+ventanita.resizable(False,False)
 def salir():
     ventanita.destroy()
 
