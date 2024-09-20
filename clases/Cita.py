@@ -97,6 +97,3 @@ def llenarArchivo (objeto):
         return archivo
     
 archivoC = llenarArchivo(p)
-
-
-
