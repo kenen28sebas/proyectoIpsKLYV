@@ -559,7 +559,7 @@ def main():
                 ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
 
             def registrarEl():
-                reexl.destroy()
+                # reexl.destroy()
                 framejose.destroy()
                 frame2.destroy()
 
