@@ -1,27 +1,22 @@
 import datetime
 
 class Cita ():
-    def __init__(self,fechaCita,medico,consultorio,bdc):
+    def __init__(self,fechaCita,medico,consultorio):
         self._noCita = 0
         self._vigencia = 0
-        self._fechaCreacion = f'{datetime.datetime.now().year},{datetime.datetime.now().month},{datetime.datetime.now().day},{datetime.datetime.now().hour},{datetime.datetime.now().minute}'
-        self._fechaCita = f'{fechaCita.year},{fechaCita.month},{fechaCita.day},{fechaCita.hour},{fechaCita.minute}'
+        self._fechaCreacion = datetime.datetime.now()
+        self._fechaCita = fechaCita
         self._medico = medico
         self._consultorio = consultorio
-        self.setVigencia(fechaCita)
-        self.setNoCita(bdc)
+        self.setVigencia()
      
-    def setNoCita(self,c):
-        no = 1
-        n = c.find()
-        for i in n:
-            no += 1
-        self._noCita = no
+    def setNoCita(self):
+        pass 
     
-    def setVigencia(self,fechaCita):
-        año = fechaCita.year
-        mes = fechaCita.month
-        dia = fechaCita.day + 20
+    def setVigencia(self):
+        año = self._fechaCita.year
+        mes = self._fechaCita.month
+        dia = self._fechaCita.day + 20
 
         if dia > 29 :
             dia = dia - 29
@@ -29,7 +24,7 @@ class Cita ():
             if mes > 12:
                 mes = 1
                 año = año + 1
-        self._vigencia = f'{datetime.date(año, mes, dia).year},{datetime.date(año, mes, dia).month},{datetime.date(año, mes, dia).day}'
+        self._vigencia = datetime.date(año, mes, dia)        
         
     def getNoCita(self):
         return self._noCita
@@ -43,38 +38,9 @@ class Cita ():
     def getFechaCita(self):
         return self._fechaCita
     
-    def getMedico(self):
-        return self._medico
+l = datetime.date(2024,9,22)    
     
-    def getConsultorio(self):
-        return self._consultorio
-    
-l = datetime.datetime(2024,9,22)   
+p = Cita(l,"pene","c12")
 
-
-    
-
-
-import pymongo
-cliente=pymongo.MongoClient("mongodb://localhost:27017/")
-print(cliente.list_database_names())
-basedatos=cliente["proyecto_kenenitos"]
-cita = basedatos["Cita"]
-
-
-p = Cita(l,"pene","c12",cita)
-
-def llenarArchivo (objeto):
-        archivo = {
-            "no_cita" : objeto.getNoCita(),
-            "vigencia" : objeto.getVigencia(),
-            "fecha_creacion" : objeto.getFechaCreacion(),
-            "fecha_cita" : objeto.getFechaCita(),
-            "medico" : objeto.getMedico(),
-            "consultorio" : objeto.getConsultorio()}
-        return archivo
-    
-archivoC = llenarArchivo(p)
-
-print(archivoC)
-cita.insert_one(archivoC)
+print(p.getVigencia())
+        

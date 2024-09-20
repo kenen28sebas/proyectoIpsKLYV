@@ -1,8 +1,7 @@
 import datetime
 class AgendaDia():
-    def __init__(self,año,mes,dia,):
-        self._dia = datetime.date(año,mes,dia).strftime("%A")
-        self._dian = dia 
+    def __init__(self,dia):
+        self._dia = datetime.date(dia).strftime("%A")
         self._horas = {
             '7:00 am':[],
             '8:00 am':[] ,
@@ -18,23 +17,6 @@ class AgendaDia():
             '6:00 pm':[],
             '7:00 pm':[]
         }
-        self.citas = []
         
     def llenarPendientes(self):
         pass
-    
-    def getHora(self):
-        return self._horas
-    
-    def getDia(self):
-        return self._dia
-    
-    def getDian(self):
-        return self._dian
-    
-    def setCitas(self,arreglo):
-        for i in arreglo:
-            self.citas.append(i)
-            
-    def getCitas(self):
-        return self.citas        

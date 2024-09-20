@@ -26,8 +26,8 @@ class Experiencia_laboral:
     def setFecha_inicio(self, fecha_inicio):
         self.getFecha_inicio = fecha_inicio
         
-    def getFecha_fin(self, fecha_fin):
-        self.__fecha_fin = fecha_fin
+    def getFecha_fin(self):
+        return self.__fecha_fin
         
         
     def consultar_experiencia(self):
