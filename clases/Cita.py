@@ -5,11 +5,13 @@ class Cita ():
         self._noCita = 0
         self._vigencia = 0
         self._fechaCreacion = f'{datetime.datetime.now().year},{datetime.datetime.now().month},{datetime.datetime.now().day},{datetime.datetime.now().hour},{datetime.datetime.now().minute}'
-        self._fechaCita = f'{fechaCita.year},{fechaCita.month},{fechaCita.day},{fechaCita.hour},{fechaCita.minute}'
+        self._fechaCita = f'{fechaCita.year},{fechaCita.month},{fechaCita.day}'
         self._medico = medico
         self._consultorio = consultorio
         self.setVigencia(fechaCita)
         self.setNoCita(bdc)
+        self.horaC = f'{fechaCita.hour}:{fechaCita.minute}'
+        self.hora = fechaCita.hour
      
     def setNoCita(self,c):
         no = 1
@@ -43,13 +45,30 @@ class Cita ():
     def getFechaCita(self):
         return self._fechaCita
     
+    def getFranjaCita(self):
+        return self.hora
+    
     def getMedico(self):
         return self._medico
     
     def getConsultorio(self):
         return self._consultorio
     
-l = datetime.datetime(2024,9,22)   
+    def getHoraConsulta(self):
+        return self.horaC
+    
+    def setDatosdb(self, datosdb1, datosdb2, datosdb3, datosdb4, datosdb5, datosdb6, datosdb7,datosdb8):
+        self._noCita = datosdb1
+        self._vigencia = datosdb2
+        self._fechaCreacion = datosdb3
+        self._fechaCita = datosdb4
+        self._medico = datosdb5
+        self._consultorio = datosdb6
+        self.horaC = datosdb7
+        self.hora = datosdb8
+
+    
+l = datetime.datetime(2024,9,25,8,20)   
 
 
     
@@ -62,7 +81,7 @@ basedatos=cliente["proyecto_kenenitos"]
 cita = basedatos["Cita"]
 
 
-p = Cita(l,"pene","c12",cita)
+p = Cita(l,"lina","c13",cita)
 
 def llenarArchivo (objeto):
         archivo = {
@@ -71,10 +90,13 @@ def llenarArchivo (objeto):
             "fecha_creacion" : objeto.getFechaCreacion(),
             "fecha_cita" : objeto.getFechaCita(),
             "medico" : objeto.getMedico(),
-            "consultorio" : objeto.getConsultorio()}
+            "consultorio" : objeto.getConsultorio(),
+            "hora_consulta": objeto.getHoraConsulta(),
+            "hora_f": objeto.getFranjaCita()
+            }
         return archivo
     
 archivoC = llenarArchivo(p)
 
-print(archivoC)
-cita.insert_one(archivoC)
+
+
