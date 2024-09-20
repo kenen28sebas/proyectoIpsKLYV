@@ -1,6 +1,6 @@
 from typing import Any, Tuple
 from customtkinter import *
-from PIL import Image,ImageTk
+
 import pymongo
 # from interfaz import *
 from tkcalendar import *
@@ -55,16 +55,16 @@ def main():
 
 
 
-    # formularioIm2= Image.open("hp.png")
-    # formularioIm2 = formularioIm2.resize((100, 100))
-    # imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
+    formularioIm2= Image.open("hp.png")
+    formularioIm2 = formularioIm2.resize((100, 100))
+    imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
 
-    # lblformulario2 = CTkLabel(
-    #     master=cuadrito, 
-    #     image=imagen,
-    #     text=""
-    # )
-    # lblformulario2.place(x=40, y=10)
+    lblformulario2 = CTkLabel(
+        master=cuadrito, 
+        image=imagen,
+        text=""
+    )
+    lblformulario2.place(x=40, y=10)
 
     
 
@@ -559,7 +559,7 @@ def main():
                 ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
 
             def registrarEl():
-                # reexl.destroy()
+                reexl.destroy()
                 framejose.destroy()
                 frame2.destroy()
 
@@ -633,11 +633,11 @@ def main():
 
             
 
-    martha=Menu(ventana,"Consultar hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\fml m.png")
+    martha=Menu(ventana,"Consultar hoja de vida",350,170,"marta.png")
     martha.place(x=450,y=150)
     martha.bind("<Button-1>",lambda v:consultarhv())
 
-    eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\eduardo.png")
+    eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"eduardo.png")
     eduardo.place(x=850,y=150)
     # eduardo.bind("<Button-1>",lambda v:actualizar_hv())
 
@@ -662,18 +662,18 @@ class Menu(CTkFrame):
         super().__init__(master,width=ancho,height=largo,fg_color="#BBF5BF",border_color="#386641",border_width=5)
         self.titulo=titulo
         # self.titulo.place(x=50,y=45)
-        # self.image = Image.open(imagen)
-        # self.image = self.image.resize((100, 100)) 
+        image = Image.open(imagen)
+        image = image.resize((100, 100)) 
         
         
-        # self.ctk_image = CTkImage(light_image=self.image, size=(100, 100))
+        self.ctk_image = CTkImage(light_image=image, size=(100, 100))
         
     
-        # self.lblimg = CTkLabel(self, image=self.ctk_image, text="")
-        # self.lblimg.place(x=125, y=55)
+        lblimg = CTkLabel(self, image=self.ctk_image, text="")
+        lblimg.place(x=125, y=55)
 
-        # self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
-        # self.title_label.place(x=17, y=10)
+        self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
+        self.title_label.place(x=17, y=10)
 
 
 
