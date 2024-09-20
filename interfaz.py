@@ -48,12 +48,12 @@ class Usuario(CTkButton):
 
 class Sipi(CTkFrame):
     def __init__(self, master,titulo,ancho,largo,largo2):
-        super().__init__(master, width=ancho,height=largo,fg_color="white")
+        super().__init__(master, width=ancho,height=largo,fg_color="white",border_width=3,border_color="#5a189a")
         self.titulo=titulo
         tituloE = CTkLabel(self,text=self.titulo,font=("coolvetica rg",20),text_color="black")
-        tituloE.place(x=20,y=0)
+        tituloE.place(x=20,y=10)
         self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
-        self.caja.place(x=20,y=30)
+        self.caja.place(x=20,y=40)
 
         
         # self.caja = CTkEntry(self, border_color="#38184C", border_width=3, width=largo2)

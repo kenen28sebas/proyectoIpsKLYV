@@ -3,6 +3,7 @@ from clases.paciente import *
 import pymongo
 from clases.agenda import *
 from clases.Cita import * 
+from PIL import Image
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["proyecto_kenenitos"]
@@ -144,7 +145,9 @@ header=CTkFrame(
     width=1000,
     height=100,
     fg_color="#44E3D3",
-    corner_radius=0
+    corner_radius=0,
+    border_width=3,
+    border_color="#6a4c93"
 )
 secction1=CTkFrame(master=ventana,
     width=960,
@@ -154,19 +157,29 @@ secction1=CTkFrame(master=ventana,
 secction1.place(x=20,y=120)
 header.place(x=0, y=0)
 
-vnVusuario = CTkToplevel(ventana, width=400, height=400)
+vnVusuario = CTkToplevel(ventana, width=400, height=400,fg_color="white")
 vnVusuario.lift()
 vnVusuario.attributes('-topmost', True)
-titulo = CTkLabel(vnVusuario,text="Buscar paciente")
-titulo.place(x=150,y=40)
+titulo = CTkLabel(vnVusuario,text="Buscar usuario",text_color="black",font=("Ready For Fall",20))
+titulo.place(x=120,y=40)
+
+buscar=Image.open("buscrr.png")
+buscar=buscar.resize((100,100))
+imgg=CTkImage(light_image=buscar,size=(100,100))
+
+# lblbuscar=CTkLabel(master=ventana,image=imgg,text="")
+# lblbuscar.place(
+    
+    
+# )
 
 
 
-cajaTexto = Sipi(vnVusuario,"No de documento",320, 80, 280)
-cajaTexto.place(x=40,y=90) 
+cajaTexto = Sipi(vnVusuario,"Numero de documento",320, 90, 280)
+cajaTexto.place(x=40,y=100) 
 
-btn = CTkButton(vnVusuario,text="buscar paciente",command=lambda:buscarPaciente(vnVusuario,cajaTexto.getEntri(),lambda:(llenarobPaciente(),opcionePaciente())))
-btn.place(x=130,y=180)
+btn = CTkButton(vnVusuario,text="buscar paciente",command=lambda:buscarPaciente(vnVusuario,cajaTexto.getEntri(),lambda:(llenarobPaciente(),opcionePaciente())),width=200,border_color="#3c096c",fg_color="#e7c6ff",border_width=5,height=40,text_color="black",font=("212 Baby Girl",20))
+btn.place(x=100,y=200)
 
 
 
