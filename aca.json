@@ -1,0 +1,44 @@
+{
+    "tipo_documento": "cc",
+    "identificacion": "1233506312",
+    "fecha_expedicion": "2022-03-15",
+    "lugar_expedicion": "Madrid",
+    "nombres": "Juan Pablo",
+    "apellido1": "García",
+    "apellido2": "Sánchez",
+    "fecha_nacimiento": "1985-07-20",
+    "genero": "Masculino",
+    "sexo": "M",
+    "email": "juan.garcia@example.com",
+    "telefono": "+34 600 123 456",
+    "experiencias_laborales": [
+        {
+            "empresa": "Tech Solutions",
+            "cargo": "Desarrollador",
+            "fecha_inicio": "2010-01-01",
+            "fecha_fin": "2022-02-28"
+        },
+        {
+            "empresa": "Healthcare Systems",
+            "cargo": "Consultor de TI",
+            "fecha_inicio": "2008-05-15",
+            "fecha_fin": "2009-12-31"
+        }
+    ],
+    "academicos": [
+        {
+            "titulo": "Ingeniero en Informática",
+            "institucion": "Universidad Politécnica de Madrid",
+            "fecha_inicio": "2003-09-01",
+            "fecha_fin": "2008-06-30",
+            "especialidad": "medico general"
+        },
+        {
+            "titulo": "Máster en Inteligencia Artificial",
+            "institucion": "Universidad de Barcelona",
+            "fecha_inicio": "2009-01-01",
+            "fecha_fin": "2011-12-15",
+            "especialidad": "Ciencias de la computación"
+        }
+    ]
+}

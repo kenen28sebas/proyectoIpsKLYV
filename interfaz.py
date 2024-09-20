@@ -380,6 +380,4 @@ class Calendario (CTkFrame):
                 self.cita.bind("<Button-1>",evento) 
             elif len(texto) > 1 :
                 self.cita = Ctcita(self.divdomingo,horaFinal,texto,"green")
-                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)          
-           
-        
+                self.cita.grid(row=ind+1, column=1, pady=1,padx=0)   
