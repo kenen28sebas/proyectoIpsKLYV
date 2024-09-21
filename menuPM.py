@@ -82,4 +82,3 @@ botonS=CTkButton(ventanita,width=300,height=50,fg_color="#deaaff",border_width=3
 botonS.place(x=500,y=400)
 ventanita.mainloop()
 
-    

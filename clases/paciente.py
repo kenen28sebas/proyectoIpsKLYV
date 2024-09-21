@@ -13,3 +13,6 @@ class Paciente (Persona):
         self.estraro = estraro
         self.estado_civil = estado_civil
         self.EPS = EPS
+        self.citas = []
+    def setCitas(self, cita):
+        self.citas.append(cita)  

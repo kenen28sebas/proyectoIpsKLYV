@@ -1,7 +1,7 @@
 import datetime
 
 class Cita ():
-    def __init__(self,fechaCita,medico,consultorio,bdc):
+    def __init__(self,fechaCita,medico,consultorio,bdc,doc):
         self._noCita = 0
         self._vigencia = 0
         self._fechaCreacion = f'{datetime.datetime.now().year},{datetime.datetime.now().month},{datetime.datetime.now().day},{datetime.datetime.now().hour},{datetime.datetime.now().minute}'
@@ -12,6 +12,7 @@ class Cita ():
         self.setNoCita(bdc)
         self.horaC = f'{fechaCita.hour}:{fechaCita.minute}'
         self.hora = fechaCita.hour
+        self._doc = doc
      
     def setNoCita(self,c):
         no = 1
@@ -57,7 +58,7 @@ class Cita ():
     def getHoraConsulta(self):
         return self.horaC
     
-    def setDatosdb(self, datosdb1, datosdb2, datosdb3, datosdb4, datosdb5, datosdb6, datosdb7,datosdb8):
+    def setDatosdb(self, datosdb1, datosdb2, datosdb3, datosdb4, datosdb5, datosdb6, datosdb7,datosdb8,datosdb9):
         self._noCita = datosdb1
         self._vigencia = datosdb2
         self._fechaCreacion = datosdb3
@@ -66,6 +67,7 @@ class Cita ():
         self._consultorio = datosdb6
         self.horaC = datosdb7
         self.hora = datosdb8
+        self._doc = datosdb9
 
     
 l = datetime.datetime(2024,9,25,8,20)   
@@ -77,11 +79,11 @@ l = datetime.datetime(2024,9,25,8,20)
 import pymongo
 cliente=pymongo.MongoClient("mongodb://localhost:27017/")
 print(cliente.list_database_names())
-basedatos=cliente["proyecto_kenenitos"]
+basedatos=cliente["proyecto_IPS"]
 cita = basedatos["Cita"]
 
 
-p = Cita(l,"lina","c13",cita)
+p = Cita(l,"lina","c13",cita,"123456789")
 
 def llenarArchivo (objeto):
         archivo = {
