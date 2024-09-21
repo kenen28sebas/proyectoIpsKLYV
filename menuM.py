@@ -8,6 +8,96 @@ from tkcalendar import *
 
 from clases.paciente import *
 from clases.personalM import *
+global ob
+ob = None
+obP = None
+def llenarobMdico(documento):
+    global obP
+    obP = Medicos(documento["tipo_documento"],
+                  documento["identificacion"],
+                  documento["fecha_expedicion"],
+                  documento["fecha_expedicion"],
+                  documento["nombres"],
+                  documento["apellido1"],
+                  documento["apellido2"],
+                  documento["fecha_nacimiento"],
+                  documento["genero"],
+                  documento["sexo"],
+                  documento["telefono"],
+                  documento["email"],
+                  documento["especialidad"])
+
+    
+    
+
+class Menu(CTkFrame):
+
+
+    def __init__(self, master,titulo,ancho,largo,imagen):
+        super().__init__(master,width=ancho,height=largo,fg_color="#BBF5BF",border_color="#386641",border_width=5)
+        self.titulo=titulo
+        # self.titulo.place(x=50,y=45)
+        image = Image.open(imagen)
+        image = image.resize((100, 100)) 
+        
+        
+        self.ctk_image = CTkImage(light_image=image, size=(100, 100))
+        
+    
+        lblimg = CTkLabel(self, image=self.ctk_image, text="")
+        lblimg.place(x=125, y=55)
+
+        self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
+        self.title_label.place(x=17, y=10)
+
+class Sipi(CTkFrame):
+    def __init__(self, master,titulo,ancho,largo,largo2):
+        super().__init__(master, width=ancho,height=largo,fg_color="white")
+        self.titulo=titulo
+        tituloE = CTkLabel(self,text=self.titulo,font=("Papernotes",25),text_color="black")
+        tituloE.place(x=20,y=12)
+        self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
+        self.caja.place(x=20,y=50)
+    def getEntri(self):
+        return self.caja.get()
+    
+    def clear(self):
+        self.caja.delete(0, END)
+
+
+
+
+class Nopi(CTkFrame):
+    def __init__(self, master, titulo,ancho,largo,opciones,largo2):
+        super().__init__(master,width=ancho,height=largo,fg_color="white")
+        self.titulo=titulo
+        ttlo=CTkLabel(self,text=self.titulo,font=("Papernotes",25))
+        ttlo.place(x=20,y=12)
+        self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18),dropdown_fg_color="#fae0e4",button_hover_color="#ff7096",button_color="#e7c6ff")
+        self.combo.place(x=20,y=50)
+
+    def getEntri(self):
+        return self.combo.get()
+    
+
+
+
+
+
+class Date(CTkFrame):
+    def __init__(self, master, titulo):
+        super().__init__(master, width=250, height=100, fg_color="white")
+        self.titulo = titulo
+    
+        ttlD = CTkLabel(self, text=self.titulo, font=("Papernotes", 25))
+        ttlD.place(x=20,y=12)
+        
+        self.j = DateEntry(self, width=20, background='#ff8fab', foreground='black', borderwidth=3, font=('Papernotes', 12))
+        self.j.place(x=40,y=70)
+    def getEntri(self):
+        return self.j.get()
+
+
 
 
 
@@ -21,9 +111,59 @@ medico=myDb["Medico"]
 # h = documentos[0]["academicos"]
 # print(documentos[0]["academicos"][0]["titulo"])
 
+def llenarArchivomd (objeto,collection):
+        archivo = {
+            "tipo_documento" : objeto.getTipoDoc(),
+            "identificacion" : objeto.getIdentificacion(),
+            "fecha_expedicion" : objeto.getFechaExp(),
+            "lugar_expedicion" : objeto.getLugar(),
+            "nombres" : objeto.getNombres(),
+            "apellido1" : objeto.getApellido1(),
+            "apellido2" : objeto.getApellido2(),
+            "fecha_nacimiento" : objeto.getFechaN(),
+            "genero": objeto.getGenero(),
+            "sexo" : objeto.getSexo(),
+            "email" : objeto.getEmail(), 
+            "telefono": objeto.getTelefono(),
+            "experiencia":[
+                
+            ],
+            "academicos": [
+                
+            ],
+            
+            "especialidad" : objeto.getEspecialidad()
+            
+            }
+        for i in objeto.getExpLaboral():
+            x = {
+                "empresa" :i.getEmpresa(),
+                "cargo":i.getCargo(),
+                "fechaInicio":i.getFecha_inicio(),
+                "fecha_fin":i.getFecha_fin()  }
+            archivo["experiencia"].append(x)
+            
+            
+        for j in objeto.getAcademicos():
+             y = {
+                 "titulo": j.getTitulo(),
+                "institucion" : j.getInstitucion(),
+                "fechaInicio" : j.getFechaI(),
+                "fechaFin" : j.getFechaF()
+             }
+                
+             archivo["academicos"].append(y)
+        
 
+                
+            
+                
+        collection.insert_one(archivo)
 
-
+def clenaBox(entri):
+    for i in entri:
+        
+        i.clear()
 
 
 
@@ -181,7 +321,7 @@ def main():
         #     print(i)
         
 
-
+        global frame2
         frame2=CTkFrame(ventana,width=320,height=150,border_width=5,border_color="#5a189a",fg_color="#dbcae9")
         frame2.place(x=50,y=250)
         
@@ -362,14 +502,12 @@ def main():
                     acains.place(x=20,y=50)
 
 
-                    fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
+                    fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
                     fechaini.place(x=20,y=80)
 
-                    fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
+                    fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fechaFin"]}",text_color="black",font=("Ready For Fall",18))
                     fechafn.place(x=20,y=110)
 
-                    especialidad=CTkLabel(acadm,text=f"Especialidad:{i["especialidad"]}",text_color="black",font=("Ready For Fall",18))
-                    especialidad.place(x=20,y=140)
                     y =y+250
                     boton=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70)
                     boton.place(x=1100,y=170)
@@ -379,7 +517,7 @@ def main():
                 expL.destroy()
                 ventana.geometry("1250x700")
                 y=200
-                for e in documentos[0]["experiencias_laborales"]:
+                for e in documentos[0]["experiencia"]:
 
                     experiencias=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
                     experiencias.place(x=500,y=y)
@@ -391,7 +529,7 @@ def main():
                     cargo=CTkLabel(experiencias,text=f"Cargo:{e["cargo"]}",text_color="black",font=("Ready For Fall",18))
                     cargo.place(x=20,y=80)
 
-                    FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
+                    FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
                     FechaI.place(x=20,y=110)
 
                     FechaF=CTkLabel(experiencias,text=f"Fecha fin:{e["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
@@ -412,7 +550,6 @@ def main():
 
         perm=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#2c6e49",fg_color="#ffc9b9")
         perm.place(x=0,y=0)
-        perm.bind("<Button-1>",lambda v:reacademicos())
 
         lbltitulo=CTkLabel(perm,text="Registrar personal medico",text_color="black",font=("Ready For Fall",35))
         lbltitulo.place(x=410,y=50)
@@ -430,7 +567,6 @@ def main():
 
         frame1=CTkFrame(ventana,width=1250,height=550,fg_color="white")
         frame1.place(x=0,y=150)
-        frame1.bind("<Button-1>",lambda v:reacademicos())
 
         tip_doc = Nopi(frame1, "Tipo de documento:", 230, 100, ["CC", "TI","Cedula de extrangeria","Registro civil"], 200)
         tip_doc.place(x=50,y=30)
@@ -470,6 +606,8 @@ def main():
 
         especialidad=Sipi(frame1,"Especialidad:",250,100,200)
         especialidad.place(x=50,y=340)
+        
+        
 
         btnguardar=CTkButton(frame1,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarMedico())
         btnguardar.place(x=70,y=480)
@@ -477,21 +615,24 @@ def main():
         reaca=CTkFrame(frame1,width=340,height=80,border_width=5,border_color="#fb6f92",fg_color="#ffd6ff")
 
         reaca.place(x=280,y=450)
-        reaca.bind("<Button-1>",lambda v:reacademicos())
+        reaca.bind("<Button-1>",lambda v:(reacademicos()))
 
         jijiji=CTkLabel(reaca,text="Registrar informacion academica",text_color="black",font=("Papernotes",25))
         jijiji.place(x=10,y=25)
-
-
+        global ob
+        print(ob)
         # ob=Medicos(tip_doc.getEntri)
 
-        ob = None
+        
 
         # ob.setExpLaboral()
         def registrarMedico():
             global ob
-            ob=Medicos(tip_doc.getEntri(),identificacionn.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),fecha_na.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
+            ob=Medicos(tip_doc.getEntri(),identificacionn.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),fecha_na.getEntri(),"genero.getEntri()","sexo.getEntri()",telefono.getEntri(),email.getEntri(),especialidad.getEntri())
             print(ob.getNombres())
+            print(ob.getApellido1())
+            
+        print(ob)    
 
 
 
@@ -513,9 +654,10 @@ def main():
         # )
         # lblformulario3.place(x=900, y=20)
 
-
+        
 
         def reacademicos():
+            
             # global framejose
             perm.destroy()
             frame1.destroy()
@@ -556,25 +698,27 @@ def main():
             # especialidad=Sipi(framejose,"Especialización",250,100,200)
             # especialidad.place(x=50,y=150)
 
-            btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarAcdd())
+            btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:(registrarAcdd(),clenaBox([tituloa,institucion])))
             btnguardar.place(x=550,y=260)
 
             reexl=CTkFrame(ventana,width=340,height=80,border_width=5,border_color="#0a9396",fg_color="#90e0ef")
             reexl.place(x=700,y=500)
-            reexl.bind("<Button-1>",lambda v:registrarEl())
+            reexl.bind("<Button-1>",lambda v:(registrarEl(),delreexl(),registrarAcdd()))
 
             titulo1=CTkLabel(reexl,text="Registrar experiencia laboral",text_color="black",font=("Papernotes",25))
             titulo1.place(x=10,y=25)
 
             def registrarAcdd():
                 global ob
-
                 ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
-
-            def registrarEl():
+                
+            def delreexl():
                 reexl.destroy()
-                framejose.destroy()
-                frame2.destroy()
+            
+        def registrarEl():
+
+            # framejose.destroy()
+            # frame2.destroy()
 
             framee=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
             framee.place(x=0,y=0)
@@ -611,90 +755,53 @@ def main():
             # especialidad1=Sipi(frameel,"Especialización:",250,100,200)
             # especialidad1.place(x=50,y=150)
 
-            btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registraExpl())
+            btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:(registraExpl(),clenaBox([cargo,empresa])))
             btnguardar1.place(x=550,y=260)
-
+            
+            reexl=CTkFrame(ventana,width=340,height=80,border_width=5,border_color="#0a9396",fg_color="#90e0ef")
+            reexl.place(x=700,y=500)
+            reexl.bind("<Button-1>",lambda v:confirmacion())
+            
+            titulo1=CTkLabel(reexl,text="Registrar Personal",text_color="black",font=("Papernotes",25))
+            titulo1.place(x=10,y=25)
+            
             def registraExpl():
                 global ob
 
                 ob.setExpLaboral(empresa.getEntri(),cargo.getEntri(),fechafin1.getEntri(),fechafin1.getEntri())
-
-
-
-            # def actualizarhv():
-            #     eduardo.destroy()
-            #     frame2.destroy()
-
-
-
-
-    
-
-                
-
-
-
-
-
-
-
-                
-
-
-
-
-
             
-
-    martha=Menu(ventana,"Consultar hoja de vida",350,170,"marta.png")
-    martha.place(x=450,y=150)
-    martha.bind("<Button-1>",lambda v:consultarhv())
-
-    eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"eduardo.png")
-    eduardo.place(x=850,y=150)
-    # eduardo.bind("<Button-1>",lambda v:actualizar_hv())
-
-
-
-
-
-
+            
+            def confirmacion ():
+                global ob
+                print(ob.getApellido1())
+                try: 
+                    global ventana_emergente
+                    llenarArchivomd(ob,medico)
+                    ventana_emergente = CTkToplevel()
+                    ventana_emergente.title("Ventana Emergente")
+                    ventana_emergente.geometry("400x80")
+                    ventana_emergente.lift()
+                    ventana_emergente.attributes('-topmost', True)
+                    mi_frame = CTkFrame(ventana_emergente)
+                    mi_frame.pack(expand=True, fill="both", padx=20, pady=20)
+                    etiqueta = CTkLabel(mi_frame, text="Përsonal cargado con exito!")
+                    etiqueta.pack()
+                    boton = CTkButton(mi_frame, text="Cerrar", command=ventana_emergente.destroy)
+                    boton.place(x=40,y=40)
+                except:
+                    ventana_emergente.title("Ventana Emergente")
+                    ventana_emergente.geometry("400x300")
+                    ventana_emergente.lift()
+                    ventana_emergente.attributes('-topmost', True)
+                    mi_frame = CTkFrame(ventana_emergente)
+                    mi_frame.pack(expand=True, fill="both", padx=20, pady=20)
+                    etiqueta = CTkLabel(mi_frame, text="Error, intentelo nuevamente")
+                    etiqueta.pack()
+                    boton = CTkButton(mi_frame, text="Cerrar", command=ventana_emergente.destroy)
+                    boton.place(x=40,y=40)
+                
         
-
-
-
-    ventana.mainloop()
-    lblformulario2 = CTkLabel(
-        master=cuadrito, 
-        image=imagen,
-        text=""
-    )
-    lblformulario2.place(x=40, y=10)
-
-    
-
-    boton=CTkButton(ventana,width=300,height=50,border_width=5,border_color="#7209b7",fg_color="#e7c6ff",text="Salir",text_color="black",font=("Ready For Fall",20),hover_color="#ff85a1",command=lambda:Salir())
-    boton.place(x=470,y=400)
-
-    jose2=Menu(ventana,"Registrar personal medico",350,170,"frm2.png")
-    jose2.place(x=50,y=150)
-    jose2.bind("<Button-1>",lambda v:RegistrarP())
-
-
-
-
-    
-    def atrasM():
-        main()
-
-    def Salir():
-        ventana.destroy()
-
-    
-
-
-    
-    def consultarhv():
+    def actualizarHV():
         jose2.destroy()
         martha.destroy()
         # eduardo.destroy()
@@ -712,7 +819,7 @@ def main():
 
         titulo2 = CTkLabel(
         master=cuadrito2, 
-        text="Consultar hoja de vida",
+        text="Actualizar hoja de vida",
         text_color="black",
         font=("Ready For Fall", 30)
         )
@@ -755,335 +862,752 @@ def main():
             text=""
         )
         lblimg2.place(x=40,y=15)
-
-        # def actualizar_hv():
-        #     eduardo.destroy()
-        #     cuadrito2.destroy()
-
-
-
-
-
-    def buscarhv(identificacion):
+        
+            
+        def buscarhv(identificacion):
         # frame2.destroy()
-        ventana.geometry("1250x500")
-        
-        documentos=medico.find({"identificacion":identificacion})
-        # for i in documentos:
-        #     print(i)
-        
-
-
-        frame2=CTkFrame(ventana,width=320,height=150,border_width=5,border_color="#5a189a",fg_color="#dbcae9")
-        frame2.place(x=50,y=250)
-        
-        texto=CTkLabel(frame2,text=f'Nombre:{documentos[0]["nombres"]}',text_color="black",font=("Ready For Fall",22))
-        texto.place(x=50,y=90)
-        
-        
-
-        marta=Image.open("marta.png")
-        marta=marta.resize((80,80))
-        img=CTkImage(light_image=marta,size=(80,80))
-
-        lblimg=CTkLabel(master=frame2,image=img,text="")
-        lblimg.place(x=110,y=10)
-        
-        # boton3=CTkButton(frame2,text="Consultar",border_width=3,border_color="#a06cd5",fg_color="#e2cfea",text_color="black",font=("Ready For Fall",20))
-        # boton3.place(x=90,y=80)
-        frame2.bind("<Button-1>",lambda v:jose())
-
-
-
-
-
-
-
-
-        
-        
-
-        def jose():
             
-            frame2.destroy()
-
-            ventana.geometry("1250x650")
-
+            ventana.geometry("1250x500")
             
-
-            frame3=CTkFrame(ventana,width=500,height=450,fg_color="white")
-            frame3.place(x=0,y=200)
-            frame3.bind("<Button-1>",lambda v:academicos())
-
-            # hv=CTkFrame(frame3,width=500,height=400,border_width=3,border_color="black",fg_color="white")
-            # hv.place(x=0,y=20)
-
-            tp_id=CTkLabel(frame3,text=f"Tipo de identificacion:{documentos[0]["tipo_documento"]}",text_color="black",font=("Ready For Fall",20))
-            tp_id.place(x=40,y=30)
+            documentos=medico.find({"identificacion":identificacion})
+            # for i in documentos:
+            #     print(i)
+            llenarobMdico(documentos[0])
+            print(obP)
             
-
-            ide=CTkLabel(frame3,text=f"Identificacion:{documentos[0]["identificacion"]}",text_color="black",font=("Ready For Fall",20))
-            ide.place(x=40,y=60)
+            frame2=CTkFrame(ventana,width=320,height=150,border_width=5,border_color="#5a189a",fg_color="#dbcae9")
+            frame2.place(x=50,y=250)
             
-            
+            texto=CTkLabel(frame2,text=f'Nombre:{documentos[0]["nombres"]}',text_color="black",font=("Ready For Fall",22))
+            texto.place(x=50,y=90)
             
             
 
-            fechaE=CTkLabel(frame3,text=f"Fecha de expedicion:{documentos[0]["fecha_expedicion"]}",text_color="black",font=("Ready For Fall",20))
-            fechaE.place(x=40,y=90)
+            marta=Image.open("marta.png")
+            marta=marta.resize((80,80))
+            img=CTkImage(light_image=marta,size=(80,80))
 
-            lugarE=CTkLabel(frame3,text=f"Lugar de expedicion:{documentos[0]["lugar_expedicion"]}",text_color="black",font=("Ready For Fall",20))
-            lugarE.place(x=40,y=120)
-
-            nombres=CTkLabel(frame3,text=f"Nombres:{documentos[0]["nombres"]}",text_color="black",font=("Ready For Fall",20))
-            nombres.place(x=40,y=150)
-
-            apellido1=CTkLabel(frame3,text=f"Apellido 1:{documentos[0]["apellido1"]}",text_color="black",font=("Ready For Fall",20))
-            apellido1.place(x=40,y=180)
-
-            apellido2=CTkLabel(frame3,text=f"Apellido 2:{documentos[0]["apellido2"]}",text_color="black",font=("Ready For Fall",20))
-            apellido2.place(x=40,y=210)
-
-            fechaNa=CTkLabel(frame3,text=f"Fecha de nacimiento:{documentos[0]["fecha_nacimiento"]}",text_color="black",font=("Ready For Fall",20))
-            fechaNa.place(x=40,y=240)
-
-            genero=CTkLabel(frame3,text=f"Genero:{documentos[0]["genero"]}",text_color="black",font=("Ready For Fall",20))
-            genero.place(x=40,y=270)
-
-            sexo=CTkLabel(frame3,text=f"Sexo:{documentos[0]["sexo"]}",text_color="black",font=("Ready For Fall",20))
-            sexo.place(x=40,y=300)
-
-            telefono=CTkLabel(frame3,text=f"Telefono:{documentos[0]["telefono"]}",text_color="black",font=("Ready For Fall",20))
-            telefono.place(x=40,y=330)
-
-            email=CTkLabel(frame3,text=f"Email:{documentos[0]["email"]}",text_color="black",font=("Ready For Fall",20))
-            email.place(x=40,y=360)
-
-            # direccion=CTkLabel(frame3,text=f"Direccion:{documentos[0]["direccion"]}",text_color="black",font=("Ready For Fall",20))
-            # direccion.place(x=40,y=390)
-
-            # nacionalidad=CTkLabel(frame3,text=f"Nacionalidad:{documentos[0]["nacionalidad"]}",text_color="black",font=("Ready For Fall",20))
-            # nacionalidad.place(x=40,y=390)
-
-            frame4=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
-            frame4.bind("<Button-1>",lambda v:academicos())
-            frame4.place(x=600,y=200)
-            # frame4.bind("<Button-1>",lambda v:academicos())
-
-
-
-
-            aca=CTkLabel(frame4,text=" Consultar Academicos",text_color="black",font=("Ready For Fall",22))
+            lblimg=CTkLabel(master=frame2,image=img,text="")
+            lblimg.place(x=110,y=10)
             
-            aca.place(x=50,y=10)
-
-
-            
-            img3= Image.open("academicos.png")
-            img3 = img3.resize((80, 80))
-            imagen3 = CTkImage(light_image=img3, size=(80, 80))
-
-            lblimg3 = CTkLabel(
-                master=frame4, 
-                image=imagen3,
-                text=""
-            )
-            lblimg3.place(x=140, y=50)
-
-            # jose()
-
-
-            
-
-            # acatlo=CTkLabel(frame4,text=f"Titulo:{documentos[0]["academicos"]["titulo"]}",text_color="black",font=("Ready For Fall",18))
-            # acatlo.place(x=20,y=50)
-
-            # acains=CTkLabel(frame4,text=f"Institución:{documentos[0]["academicos"]["institución"]}",text_color="black",font=("Ready For Fall",18))
-            # acains.place(x=20,y=80)
-
-
-            # fechaini=CTkLabel(frame4,text=f"Fecha inicio:{documentos[0]["academicos"]["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
-            # fechaini.place(x=20,y=110)
-
-            # fechafn=CTkLabel(frame4,text=f"Fecha fin:{documentos[0]["academicos"]["fechaFin"]}",text_color="black",font=("Ready For Fall",18))
-            # fechafn.place(x=20,y=140)
-
-            expL=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
-            expL.place(x=600,y=400)
-            expL.bind("<Button-1>",lambda v:experienciaL())
-
-
-            experiencia=CTkLabel(expL,text=" Consultar Experiencia",text_color="black",font=("Ready For Fall",22))
-            experiencia.place(x=50,y=10)
-
-
-            img4= Image.open("experiencial.png")
-            img4 = img4.resize((80, 80))
-            imagen4 = CTkImage(light_image=img4, size=(80, 80))
-
-            lblimg4 = CTkLabel(
-                master=expL, 
-                image=imagen4,
-                text=""
-            )
-            lblimg4.place(x=140, y=50)
+            # boton3=CTkButton(frame2,text="Consultar",border_width=3,border_color="#a06cd5",fg_color="#e2cfea",text_color="black",font=("Ready For Fall",20))
+            # boton3.place(x=90,y=80)
+            frame2.bind("<Button-1>",lambda v:editarHV())
 
 
 
-#boton atras
-            # atras=CTkButton(frame3,width=150,height=80,border_width=5,border_color="black",fg_color="white",text="Atras",font=("Ready For Fall",20),text_color="black")
-            # atras.place(x=150,y=300)
-
-            def academicos():
-                frame4.destroy()
-                ventana.geometry("1250x700")
-                # frame4.destroy()
-                expL.destroy()
-                # frame3.destroy()
-                y = 200
-                for i in documentos[0]["academicos"]:
-                    
-                    acadm=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
-                    acadm.place(x=550,y=y)
-
-
-                    acatlo=CTkLabel(acadm,text=f"Titulo:{i["titulo"]}",text_color="black",font=("Ready For Fall",18))
-                    acatlo.place(x=20,y=20)
-
-                    acains=CTkLabel(acadm,text=f"Institución:{i["institucion"]}",text_color="black",font=("Ready For Fall",18))
-                    acains.place(x=20,y=50)
-
-
-                    fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
-                    fechaini.place(x=20,y=80)
-
-                    fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
-                    fechafn.place(x=20,y=110)
-
-                    especialidad=CTkLabel(acadm,text=f"Especialidad:{i["especialidad"]}",text_color="black",font=("Ready For Fall",18))
-                    especialidad.place(x=20,y=140)
-                    y =y+250
-                    boton=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70)
-                    boton.place(x=1100,y=170)
+            # def actualizarhv():
+            #     eduardo.destroy()
+            #     frame2.destroy()
+            def editarHV():
                 
-            def experienciaL():
-                frame4.destroy()
-                expL.destroy()
-                ventana.geometry("1250x700")
-                y=200
-                for e in documentos[0]["experiencias_laborales"]:
+                frame2.destroy()
 
-                    experiencias=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
-                    experiencias.place(x=500,y=y)
+                ventana.geometry("1250x650")
+
+                
+
+                frame3=CTkFrame(ventana,width=500,height=450,fg_color="white")
+                frame3.place(x=0,y=200)
+                frame3.bind("<Button-1>",lambda v:"")
+
+                # hv=CTkFrame(frame3,width=500,height=400,border_width=3,border_color="black",fg_color="white")
+                # hv.place(x=0,y=20)
+
+                tp_id=CTkLabel(frame3,text=f"Tipo de identificacion:{documentos[0]["tipo_documento"]}",text_color="black",font=("Ready For Fall",20))
+                tp_id.place(x=40,y=30)
+                
+
+                ide=CTkLabel(frame3,text=f"Identificacion:{documentos[0]["identificacion"]}",text_color="black",font=("Ready For Fall",20))
+                ide.place(x=40,y=60)
+                
+                
+                
+                
+
+                fechaE=CTkLabel(frame3,text=f"Fecha de expedicion:{documentos[0]["fecha_expedicion"]}",text_color="black",font=("Ready For Fall",20))
+                fechaE.place(x=40,y=90)
+
+                lugarE=CTkLabel(frame3,text=f"Lugar de expedicion:{documentos[0]["lugar_expedicion"]}",text_color="black",font=("Ready For Fall",20))
+                lugarE.place(x=40,y=120)
+
+                nombres=CTkLabel(frame3,text=f"Nombres:{documentos[0]["nombres"]}",text_color="black",font=("Ready For Fall",20))
+                nombres.place(x=40,y=150)
+
+                apellido1=CTkLabel(frame3,text=f"Apellido 1:{documentos[0]["apellido1"]}",text_color="black",font=("Ready For Fall",20))
+                apellido1.place(x=40,y=180)
+
+                apellido2=CTkLabel(frame3,text=f"Apellido 2:{documentos[0]["apellido2"]}",text_color="black",font=("Ready For Fall",20))
+                apellido2.place(x=40,y=210)
+
+                fechaNa=CTkLabel(frame3,text=f"Fecha de nacimiento:{documentos[0]["fecha_nacimiento"]}",text_color="black",font=("Ready For Fall",20))
+                fechaNa.place(x=40,y=240)
+
+                genero=CTkLabel(frame3,text=f"Genero:{documentos[0]["genero"]}",text_color="black",font=("Ready For Fall",20))
+                genero.place(x=40,y=270)
+
+                sexo=CTkLabel(frame3,text=f"Sexo:{documentos[0]["sexo"]}",text_color="black",font=("Ready For Fall",20))
+                sexo.place(x=40,y=300)
+
+                telefono=CTkLabel(frame3,text=f"Telefono:{documentos[0]["telefono"]}",text_color="black",font=("Ready For Fall",20))
+                telefono.place(x=40,y=330)
+
+                email=CTkLabel(frame3,text=f"Email:{documentos[0]["email"]}",text_color="black",font=("Ready For Fall",20))
+                email.place(x=40,y=360)
+
+                # direccion=CTkLabel(frame3,text=f"Direccion:{documentos[0]["direccion"]}",text_color="black",font=("Ready For Fall",20))
+                # direccion.place(x=40,y=390)
+
+                # nacionalidad=CTkLabel(frame3,text=f"Nacionalidad:{documentos[0]["nacionalidad"]}",text_color="black",font=("Ready For Fall",20))
+                # nacionalidad.place(x=40,y=390)
+
+
+                frame4=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
+                frame4.bind("<Button-1>",lambda v:CUacademicos())
+                frame4.place(x=600,y=200)
+                # frame4.bind("<Button-1>",lambda v:academicos())
+
+
+
+
+                aca=CTkLabel(frame4,text=" Agregar Academicos",text_color="black",font=("Ready For Fall",22))
+                
+                aca.place(x=50,y=10)
+
+
+                
+                img3= Image.open("academicos.png")
+                img3 = img3.resize((80, 80))
+                imagen3 = CTkImage(light_image=img3, size=(80, 80))
+
+                lblimg3 = CTkLabel(
+                    master=frame4, 
+                    image=imagen3,
+                    text=""
+                )
+                lblimg3.place(x=140, y=50)
+
+                # jose()
+
+
+                
+
+                # acatlo=CTkLabel(frame4,text=f"Titulo:{documentos[0]["academicos"]["titulo"]}",text_color="black",font=("Ready For Fall",18))
+                # acatlo.place(x=20,y=50)
+
+                # acains=CTkLabel(frame4,text=f"Institución:{documentos[0]["academicos"]["institución"]}",text_color="black",font=("Ready For Fall",18))
+                # acains.place(x=20,y=80)
+
+
+                # fechaini=CTkLabel(frame4,text=f"Fecha inicio:{documentos[0]["academicos"]["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
+                # fechaini.place(x=20,y=110)
+
+                # fechafn=CTkLabel(frame4,text=f"Fecha fin:{documentos[0]["academicos"]["fechaFin"]}",text_color="black",font=("Ready For Fall",18))
+                # fechafn.place(x=20,y=140)
+
+                expL=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
+                expL.place(x=600,y=400)
+                expL.bind("<Button-1>",lambda v:CUexperiencia())
+
+
+                experiencia=CTkLabel(expL,text=" Agregar Experiencia",text_color="black",font=("Ready For Fall",22))
+                experiencia.place(x=50,y=10)
+
+
+                img4= Image.open("experiencial.png")
+                img4 = img4.resize((80, 80))
+                imagen4 = CTkImage(light_image=img4, size=(80, 80))
+
+                lblimg4 = CTkLabel(
+                    master=expL, 
+                    image=imagen4,
+                    text=""
+                )
+                lblimg4.place(x=140, y=50)
+
+                def CUacademicos():
+                    frame2=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
+                    frame2.place(x=0,y=0)
+
+                    lbltitulo2=CTkLabel(frame2,text="Registrar informacion academica ",font=("Ready For Fall",30))
+                    lbltitulo2.place(x=330,y=50)
+
+                    imgfra= Image.open("hp.png")
+                    imgfra = imgfra.resize((100, 100))
+                    imagenn = CTkImage(light_image=imgfra, size=(100, 100))
+
+                    lblformulario3 = CTkLabel(
+                        master=frame2, 
+                        image=imagenn,
+                        text=""
+                    )
+                    lblformulario3.place(x=900, y=20)
+
+                    framejose=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
+                    framejose.place(x=25,y=150)
+
+                    tituloa=Sipi(framejose,"Titulo:",250,100,200)
+                    tituloa.place(x=50,y=50)
+
+                    institucion=Sipi(framejose,"Institución:",250,100,200)
+                    institucion.place(x=300,y=50)
+
+                    fehcaini=Date(framejose,"Fecha inicio:")
+                    fehcaini.place(x=600,y=50)
+
+                    fechafin=Date(framejose,"Fecha de finalización")
+                    fechafin.place(x=800,y=50)
+
+                    # especialidad=Sipi(framejose,"Especialización",250,100,200)
+                    # especialidad.place(x=50,y=150)
+
+                    btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:(registrarAcdd(),clenaBox([tituloa,institucion])))
+                    btnguardar.place(x=550,y=260)
+                    
+                    btnatras=CTkButton(framejose,border_width=5,border_color="#8338ec",text="atras",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:atrasacd())
+                    btnatras.place(x=20,y=260)
+                    
+                    def atrasacd():
+                        framejose.destroy()
+                        lbltitulo2.destroy()
+                        lbltitulo2=CTkLabel(frame2,text="Actualizar hoja de vida ",font=("Ready For Fall",30))
+                        lbltitulo2.place(x=330,y=50)
+                    
+                    
+                    def registrarAcdd():
+                        global obP
+                        obP.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
+                        academico = obP.getAcademicosultimo()
+                        archivoac = {"titulo":academico.getTitulo(),
+                                     "institucion":academico.getInstitucion(),
+                                     "fechaIncio":academico.getFechaI(),
+                                     "fechaFin":academico.getFechaF()}
+                        print(archivoac)
+                        medico.update_one({"identificacion": identificacion},{"$push":{"academicos":archivoac}})
+                def CUexperiencia():
+                    frame2=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
+                    frame2.place(x=0,y=0)
+
+                    lbltitulo2=CTkLabel(frame2,text="Registrar informacion laboral ",font=("Ready For Fall",30))
+                    lbltitulo2.place(x=330,y=50)
+
+                    imgfra= Image.open("hp.png")
+                    imgfra = imgfra.resize((100, 100))
+                    imagenn = CTkImage(light_image=imgfra, size=(100, 100))
+
+                    lblformulario3 = CTkLabel(
+                        master=frame2, 
+                        image=imagenn,
+                        text=""
+                    )
+                    lblformulario3.place(x=900, y=20)
+
+                    framejose=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
+                    framejose.place(x=25,y=150)
+
+                    tituloa=Sipi(framejose,"Titulo:",250,100,200)
+                    tituloa.place(x=50,y=50)
+
+                    institucion=Sipi(framejose,"Institución:",250,100,200)
+                    institucion.place(x=300,y=50)
+
+                    fehcaini=Date(framejose,"Fecha inicio:")
+                    fehcaini.place(x=600,y=50)
+
+                    fechafin=Date(framejose,"Fecha de finalización")
+                    fechafin.place(x=800,y=50)
+
+                    # especialidad=Sipi(framejose,"Especialización",250,100,200)
+                    # especialidad.place(x=50,y=150)
+
+                    btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:(registrarAcdd(),clenaBox([tituloa,institucion])))
+                    btnguardar.place(x=550,y=260)
+                    
+                    btnatras=CTkButton(framejose,border_width=5,border_color="#8338ec",text="atras",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:atrasacd())
+                    btnatras.place(x=20,y=260)
+                    
+                    def atrasacd():
+                        framejose.destroy()
+                        lbltitulo2.destroy()
+                        lbltitulo2=CTkLabel(frame2,text="Actualizar hoja de vida ",font=("Ready For Fall",30))
+                        lbltitulo2.place(x=330,y=50)
+                    
+                    
+                    def registrarAcdd():
+                        global obP
+                        obP.setExpLaboral(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
+                        academico = obP.getExpLaboralultimo()
+                        archivoac = {"empersa":academico.getEmpresa(),
+                                     "cargo":academico.getCargo(),
+                                     "fechaIncio":academico.getFecha_inico(),
+                                     "fechaFin":academico.getFecha_fin()}
+                        print(archivoac)
+                        medico.update_one({"identificacion": identificacion},{"$push":{"experiencia":archivoac}})
+                    
+
+    #boton atras
+                # atras=CTkButton(frame3,width=150,height=80,border_width=5,border_color="black",fg_color="white",text="Atras",font=("Ready For Fall",20),text_color="black")
+                # atras.place(x=150,y=300)
+
+                
+
+    
+
+                
+
+
+
+
+
+
+
+                
+
+
+
+
+
+            
+
+    martha=Menu(ventana,"Consultar hoja de vida",350,170,"marta.png")
+    martha.place(x=450,y=150)
+    martha.bind("<Button-1>",lambda v:consultarhv())
+
+    eduardo=Menu(ventana,"Actualizar hoja de vida",350,170,"eduardo.png")
+    eduardo.place(x=850,y=150)
+    eduardo.bind("<Button-1>",lambda v:actualizarHV())
+    # eduardo.bind("<Button-1>",lambda v:actualizar_hv())
+
+
+
+
+
+
+        
+
+
+
+    ventana.mainloop()
+    lblformulario2 = CTkLabel(
+        master=cuadrito, 
+        image=imagen,
+        text=""
+    )
+    lblformulario2.place(x=40, y=10)
+
+    
+
+    boton=CTkButton(ventana,width=300,height=50,border_width=5,border_color="#7209b7",fg_color="#e7c6ff",text="Salir",text_color="black",font=("Ready For Fall",20),hover_color="#ff85a1",command=lambda:Salir())
+    boton.place(x=470,y=400)
+
+    jose2=Menu(ventana,"Registrar personal medico",350,170,"frm2.png")
+    jose2.place(x=50,y=150)
+    jose2.bind("<Button-1>",lambda v:RegistrarP())
+
+
+
+
+    
+    def atrasM():
+        main()
+
+    def Salir():
+        ventana.destroy()
+
+    
+
+
+    
+    # def consultarhv():
+    #     jose2.destroy()
+    #     martha.destroy()
+    #     # eduardo.destroy()
+    #     cuadrito.destroy()
+        
+        
+        
+    #     # titulo.destroy()
+    #     frame=CTkFrame(ventana,width=1250,height=500,fg_color="white")
+    #     frame.place(x=0,y=0)
+
+    #     cuadrito2=CTkFrame(frame,width=1250,height=130,border_width=5,border_color="#685634",fg_color="#ffc9b9")
+    #     cuadrito2.place(x=0,y=0)
+
+
+    #     titulo2 = CTkLabel(
+    #     master=cuadrito2, 
+    #     text="Consultar hoja de vida",
+    #     text_color="black",
+    #     font=("Ready For Fall", 30)
+    #     )
+    #     titulo2.place(x=450, y=40)
+
+    #     caja=CTkEntry(frame,border_width=3,border_color="#0fa3b1",width=300,placeholder_text="Digite su numero de identificacion",height=40)
+    #     # caja.bind("<Button-1>",lambda v:jose())
+    #     caja.place(x=50,y=150)
+    #     caja.get()
+
+    #     j=caja.get()
+
+
+    #     boton2=CTkButton(frame,border_width=3,border_color="#60d394",fg_color="#d9fff8",text="Buscar",height=40,text_color="black",font=("Ready For Fall",20),command=lambda:buscarhv(caja.get()))
+    #     boton2.place(x=350,y=150)
+
+    #     # boton3=CTkButton(frame,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70,command=lambda:atrasM())
+    #     # boton3.place(x=1000,y=40)
+
+    #     # atras=Image.open("atras.jpg")
+    #     # atras=atras.resize((80,80))
+    #     # atrass=CTkImage(light_image=atras,size=(80,80))
+
+    #     # lblatras=CTkLabel(
+    #     #     master=boton3,
+    #     #     image=atrass,
+    #     #     text=""
+
+    #     # )
+    #     # lblatras.place(x=40,y=15)
+
+
+    #     img2=Image.open("jose.png")
+    #     img2=img2.resize((100,100))
+    #     imagen2=CTkImage(light_image=img2,size=(100,100))
+
+    #     lblimg2=CTkLabel(
+    #         master=cuadrito2,
+    #         image=imagen2,
+    #         text=""
+    #     )
+    #     lblimg2.place(x=40,y=15)
+
+    #     # def actualizar_hv():
+    #     #     eduardo.destroy()
+    #     #     cuadrito2.destroy()
+
+
+
+
+
+    # def buscarhv(identificacion):
+    #     # frame2.destroy()
+    #     ventana.geometry("1250x500")
+        
+    #     documentos=medico.find({"identificacion":identificacion})
+    #     # for i in documentos:
+    #     #     print(i)
+        
+
+
+    #     frame2=CTkFrame(ventana,width=320,height=150,border_width=5,border_color="#5a189a",fg_color="#dbcae9")
+    #     frame2.place(x=50,y=250)
+        
+    #     texto=CTkLabel(frame2,text=f'Nombre:{documentos[0]["nombres"]}',text_color="black",font=("Ready For Fall",22))
+    #     texto.place(x=50,y=90)
+        
+        
+
+    #     marta=Image.open("marta.png")
+    #     marta=marta.resize((80,80))
+    #     img=CTkImage(light_image=marta,size=(80,80))
+
+    #     lblimg=CTkLabel(master=frame2,image=img,text="")
+    #     lblimg.place(x=110,y=10)
+        
+    #     # boton3=CTkButton(frame2,text="Consultar",border_width=3,border_color="#a06cd5",fg_color="#e2cfea",text_color="black",font=("Ready For Fall",20))
+    #     # boton3.place(x=90,y=80)
+    #     frame2.bind("<Button-1>",lambda v:jose())
+
+
+
+
+
+
+
+
+        
+        
+
+#         def jose():
+            
+#             frame2.destroy()
+
+#             ventana.geometry("1250x650")
+
+            
+
+#             frame3=CTkFrame(ventana,width=500,height=450,fg_color="white")
+#             frame3.place(x=0,y=200)
+#             frame3.bind("<Button-1>",lambda v:academicos())
+
+#             # hv=CTkFrame(frame3,width=500,height=400,border_width=3,border_color="black",fg_color="white")
+#             # hv.place(x=0,y=20)
+
+#             tp_id=CTkLabel(frame3,text=f"Tipo de identificacion:{documentos[0]["tipo_documento"]}",text_color="black",font=("Ready For Fall",20))
+#             tp_id.place(x=40,y=30)
+            
+
+#             ide=CTkLabel(frame3,text=f"Identificacion:{documentos[0]["identificacion"]}",text_color="black",font=("Ready For Fall",20))
+#             ide.place(x=40,y=60)
+            
+            
+            
+            
+
+#             fechaE=CTkLabel(frame3,text=f"Fecha de expedicion:{documentos[0]["fecha_expedicion"]}",text_color="black",font=("Ready For Fall",20))
+#             fechaE.place(x=40,y=90)
+
+#             lugarE=CTkLabel(frame3,text=f"Lugar de expedicion:{documentos[0]["lugar_expedicion"]}",text_color="black",font=("Ready For Fall",20))
+#             lugarE.place(x=40,y=120)
+
+#             nombres=CTkLabel(frame3,text=f"Nombres:{documentos[0]["nombres"]}",text_color="black",font=("Ready For Fall",20))
+#             nombres.place(x=40,y=150)
+
+#             apellido1=CTkLabel(frame3,text=f"Apellido 1:{documentos[0]["apellido1"]}",text_color="black",font=("Ready For Fall",20))
+#             apellido1.place(x=40,y=180)
+
+#             apellido2=CTkLabel(frame3,text=f"Apellido 2:{documentos[0]["apellido2"]}",text_color="black",font=("Ready For Fall",20))
+#             apellido2.place(x=40,y=210)
+
+#             fechaNa=CTkLabel(frame3,text=f"Fecha de nacimiento:{documentos[0]["fecha_nacimiento"]}",text_color="black",font=("Ready For Fall",20))
+#             fechaNa.place(x=40,y=240)
+
+#             genero=CTkLabel(frame3,text=f"Genero:{documentos[0]["genero"]}",text_color="black",font=("Ready For Fall",20))
+#             genero.place(x=40,y=270)
+
+#             sexo=CTkLabel(frame3,text=f"Sexo:{documentos[0]["sexo"]}",text_color="black",font=("Ready For Fall",20))
+#             sexo.place(x=40,y=300)
+
+#             telefono=CTkLabel(frame3,text=f"Telefono:{documentos[0]["telefono"]}",text_color="black",font=("Ready For Fall",20))
+#             telefono.place(x=40,y=330)
+
+#             email=CTkLabel(frame3,text=f"Email:{documentos[0]["email"]}",text_color="black",font=("Ready For Fall",20))
+#             email.place(x=40,y=360)
+
+#             # direccion=CTkLabel(frame3,text=f"Direccion:{documentos[0]["direccion"]}",text_color="black",font=("Ready For Fall",20))
+#             # direccion.place(x=40,y=390)
+
+#             # nacionalidad=CTkLabel(frame3,text=f"Nacionalidad:{documentos[0]["nacionalidad"]}",text_color="black",font=("Ready For Fall",20))
+#             # nacionalidad.place(x=40,y=390)
+
+#             frame4=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
+#             frame4.bind("<Button-1>",lambda v:academicos())
+#             frame4.place(x=600,y=200)
+#             # frame4.bind("<Button-1>",lambda v:academicos())
+
+
+
+
+#             aca=CTkLabel(frame4,text=" Consultar Academicos",text_color="black",font=("Ready For Fall",22))
+            
+#             aca.place(x=50,y=10)
+
+
+            
+#             img3= Image.open("academicos.png")
+#             img3 = img3.resize((80, 80))
+#             imagen3 = CTkImage(light_image=img3, size=(80, 80))
+
+#             lblimg3 = CTkLabel(
+#                 master=frame4, 
+#                 image=imagen3,
+#                 text=""
+#             )
+#             lblimg3.place(x=140, y=50)
+
+#             # jose()
+
+
+            
+
+#             # acatlo=CTkLabel(frame4,text=f"Titulo:{documentos[0]["academicos"]["titulo"]}",text_color="black",font=("Ready For Fall",18))
+#             # acatlo.place(x=20,y=50)
+
+#             # acains=CTkLabel(frame4,text=f"Institución:{documentos[0]["academicos"]["institución"]}",text_color="black",font=("Ready For Fall",18))
+#             # acains.place(x=20,y=80)
+
+
+#             # fechaini=CTkLabel(frame4,text=f"Fecha inicio:{documentos[0]["academicos"]["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
+#             # fechaini.place(x=20,y=110)
+
+#             # fechafn=CTkLabel(frame4,text=f"Fecha fin:{documentos[0]["academicos"]["fechaFin"]}",text_color="black",font=("Ready For Fall",18))
+#             # fechafn.place(x=20,y=140)
+
+#             expL=CTkFrame(ventana,width=350,height=150,border_width=5,border_color="black",fg_color="#ffc2d1")
+#             expL.place(x=600,y=400)
+#             expL.bind("<Button-1>",lambda v:experienciaL())
+
+
+#             experiencia=CTkLabel(expL,text=" Consultar Experiencia",text_color="black",font=("Ready For Fall",22))
+#             experiencia.place(x=50,y=10)
+
+
+#             img4= Image.open("experiencial.png")
+#             img4 = img4.resize((80, 80))
+#             imagen4 = CTkImage(light_image=img4, size=(80, 80))
+
+#             lblimg4 = CTkLabel(
+#                 master=expL, 
+#                 image=imagen4,
+#                 text=""
+#             )
+#             lblimg4.place(x=140, y=50)
+
+
+
+# #boton atras
+#             # atras=CTkButton(frame3,width=150,height=80,border_width=5,border_color="black",fg_color="white",text="Atras",font=("Ready For Fall",20),text_color="black")
+#             # atras.place(x=150,y=300)
+
+#             def academicos():
+#                 frame4.destroy()
+#                 ventana.geometry("1250x700")
+#                 # frame4.destroy()
+#                 expL.destroy()
+#                 # frame3.destroy()
+#                 y = 200
+#                 for i in documentos[0]["academicos"]:
+                    
+#                     acadm=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
+#                     acadm.place(x=550,y=y)
+
+
+#                     acatlo=CTkLabel(acadm,text=f"Titulo:{i["titulo"]}",text_color="black",font=("Ready For Fall",18))
+#                     acatlo.place(x=20,y=20)
+
+#                     acains=CTkLabel(acadm,text=f"Institución:{i["institucion"]}",text_color="black",font=("Ready For Fall",18))
+#                     acains.place(x=20,y=50)
+
+
+#                     fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
+#                     fechaini.place(x=20,y=80)
+
+#                     fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
+#                     fechafn.place(x=20,y=110)
+
+#                     especialidad=CTkLabel(acadm,text=f"Especialidad:{i["especialidad"]}",text_color="black",font=("Ready For Fall",18))
+#                     especialidad.place(x=20,y=140)
+#                     y =y+250
+#                     boton=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70)
+#                     boton.place(x=1100,y=170)
+                
+#             def experienciaL():
+#                 frame4.destroy()
+#                 expL.destroy()
+#                 ventana.geometry("1250x700")
+#                 y=200
+#                 for e in documentos[0]["experiencias_laborales"]:
+
+#                     experiencias=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
+#                     experiencias.place(x=500,y=y)
 
                     
-                    empresa=CTkLabel(experiencias,text=f"Empresa:{e["empresa"]}",text_color="black",font=("Ready For Fall",18))
-                    empresa.place(x=20,y=50)
+#                     empresa=CTkLabel(experiencias,text=f"Empresa:{e["empresa"]}",text_color="black",font=("Ready For Fall",18))
+#                     empresa.place(x=20,y=50)
 
-                    cargo=CTkLabel(experiencias,text=f"Cargo:{e["cargo"]}",text_color="black",font=("Ready For Fall",18))
-                    cargo.place(x=20,y=80)
+#                     cargo=CTkLabel(experiencias,text=f"Cargo:{e["cargo"]}",text_color="black",font=("Ready For Fall",18))
+#                     cargo.place(x=20,y=80)
 
-                    FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
-                    FechaI.place(x=20,y=110)
+#                     FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
+#                     FechaI.place(x=20,y=110)
 
-                    FechaF=CTkLabel(experiencias,text=f"Fecha fin:{e["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
-                    FechaF.place(x=20,y=140)
+#                     FechaF=CTkLabel(experiencias,text=f"Fecha fin:{e["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
+#                     FechaF.place(x=20,y=140)
 
-                    y=y+250
+#                     y=y+250
 
-                    boton2=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#c8b6ff",font=("Ready For Fall",25),width=150,height=70)
-                    boton2.place(x=1100,y=170)
+#                     boton2=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#c8b6ff",font=("Ready For Fall",25),width=150,height=70)
+#                     boton2.place(x=1100,y=170)
 
-    def RegistrarP():
-        jose2.destroy()
-        martha.destroy()
-        eduardo.destroy()
-        boton.destroy()
-        cuadrito.destroy()
-        ventana.geometry("1250x700")
+#     def RegistrarP():
+#         jose2.destroy()
+#         martha.destroy()
+#         eduardo.destroy()
+#         boton.destroy()
+#         cuadrito.destroy()
+#         ventana.geometry("1250x700")
 
-        perm=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#2c6e49",fg_color="#ffc9b9")
-        perm.place(x=0,y=0)
-        perm.bind("<Button-1>",lambda v:reacademicos())
+#         perm=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#2c6e49",fg_color="#ffc9b9")
+#         perm.place(x=0,y=0)
+        
 
-        lbltitulo=CTkLabel(perm,text="Registrar personal medico",text_color="black",font=("Ready For Fall",35))
-        lbltitulo.place(x=410,y=50)
+#         lbltitulo=CTkLabel(perm,text="Registrar personal medico",text_color="black",font=("Ready For Fall",35))
+#         lbltitulo.place(x=410,y=50)
 
-        imgfr= Image.open("personita.png")
-        imgfr = imgfr.resize((120, 120))
-        imagen5 = CTkImage(light_image=imgfr, size=(120, 120))
+#         imgfr= Image.open("personita.png")
+#         imgfr = imgfr.resize((120, 120))
+#         imagen5 = CTkImage(light_image=imgfr, size=(120, 120))
 
-        lblformulario2 = CTkLabel(
-            master=perm, 
-            image=imagen5,
-            text=""
-        )
-        lblformulario2.place(x=70, y=10)
+#         lblformulario2 = CTkLabel(
+#             master=perm, 
+#             image=imagen5,
+#             text=""
+#         )
+#         lblformulario2.place(x=70, y=10)
 
-        frame1=CTkFrame(ventana,width=1250,height=550,fg_color="white")
-        frame1.place(x=0,y=150)
-        frame1.bind("<Button-1>",lambda v:reacademicos())
+#         frame1=CTkFrame(ventana,width=1250,height=550,fg_color="white")
+#         frame1.place(x=0,y=150)
+        
 
-        tip_doc = Nopi(frame1, "Tipo de documento:", 230, 100, ["CC", "TI","Cedula de extrangeria","Registro civil"], 200)
-        tip_doc.place(x=50,y=30)
+#         tip_doc = Nopi(frame1, "Tipo de documento:", 230, 100, ["CC", "TI","Cedula de extrangeria","Registro civil"], 200)
+#         tip_doc.place(x=50,y=30)
 
-        identificacionn = Sipi(frame1, "Número identificación:", 230, 80, 200)
-        identificacionn.place(x=300,y=30)
+#         identificacionn = Sipi(frame1, "Número identificación:", 230, 80, 200)
+#         identificacionn.place(x=300,y=30)
 
-        fcha_exp = Date(frame1, "Fecha de expedición:")
-        fcha_exp.place(x=550,y=30)
+#         fcha_exp = Date(frame1, "Fecha de expedición:")
+#         fcha_exp.place(x=550,y=30)
 
-        lugar_exp = Sipi(frame1, "Lugar expedición:", 250, 100, 200)
-        lugar_exp.place(x=800,y=30)
+#         lugar_exp = Sipi(frame1, "Lugar expedición:", 250, 100, 200)
+#         lugar_exp.place(x=800,y=30)
 
-        nombre = Sipi(frame1, "Nombres completos:", 230, 80, 200)
-        nombre.place(x=50,y=140)
+#         nombre = Sipi(frame1, "Nombres completos:", 230, 80, 200)
+#         nombre.place(x=50,y=140)
 
-        apellido1 = Sipi(frame1, "Apellido 1:", 230, 80, 200)
-        apellido1.place(x=300,y=140)
+#         apellido1 = Sipi(frame1, "Apellido 1:", 230, 80, 200)
+#         apellido1.place(x=300,y=140)
 
-        apellido2 = Sipi(frame1, "Apellido 2:", 230, 80, 200)
-        apellido2.place(x=550,y=140)
+#         apellido2 = Sipi(frame1, "Apellido 2:", 230, 80, 200)
+#         apellido2.place(x=550,y=140)
 
-        fecha_na = Date(frame1, "Fecha de Nacimiento:")
-        fecha_na.place(x=800,y=140)
+#         fecha_na = Date(frame1, "Fecha de Nacimiento:")
+#         fecha_na.place(x=800,y=140)
 
-        sexo = Nopi(frame1, "Sexo:", 250, 100, ["Masculino","Femenino"],200)
-        sexo.place(x=50,y=240)
+#         sexo = Nopi(frame1, "Sexo:", 250, 100, ["Masculino","Femenino"],200)
+#         sexo.place(x=50,y=240)
 
-        genero = Nopi(frame1, "Género:", 250, 100, ["Hetero","Gay","Lesbiana","Bisexual"], 200)
-        genero.place(x=300,y=240)
+#         genero = Nopi(frame1, "Género:", 250, 100, ["Hetero","Gay","Lesbiana","Bisexual"], 200)
+#         genero.place(x=300,y=240)
 
-        email = Sipi(frame1, "Email:", 250, 100, 200)
-        email.place(x=550,y=240)
+#         email = Sipi(frame1, "Email:", 250, 100, 200)
+#         email.place(x=550,y=240)
 
-        telefono = Sipi(frame1, "Teléfono:", 250, 100, 200)
-        telefono.place(x=800,y=240)
+#         telefono = Sipi(frame1, "Teléfono:", 250, 100, 200)
+#         telefono.place(x=800,y=240)
 
-        especialidad=Sipi(frame1,"Especialidad:",250,100,200)
-        especialidad.place(x=50,y=340)
+#         especialidad=Sipi(frame1,"Especialidad:",250,100,200)
+#         especialidad.place(x=50,y=340)
 
-        btnguardar=CTkButton(frame1,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarMedico())
-        btnguardar.place(x=70,y=480)
+#         btnguardar=CTkButton(frame1,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarMedico())
+#         btnguardar.place(x=70,y=480)
 
-        reaca=CTkFrame(frame1,width=340,height=80,border_width=5,border_color="#fb6f92",fg_color="#ffd6ff")
+#         reaca=CTkFrame(frame1,width=340,height=80,border_width=5,border_color="#fb6f92",fg_color="#ffd6ff")
 
-        reaca.place(x=280,y=450)
-        reaca.bind("<Button-1>",lambda v:reacademicos())
+#         reaca.place(x=280,y=450)
+#         reaca.bind("<Button-1>",lambda v:reacademicos())
 
-        jijiji=CTkLabel(reaca,text="Registrar informacion academica",text_color="black",font=("Papernotes",25))
-        jijiji.place(x=10,y=25)
+#         jijiji=CTkLabel(reaca,text="Registrar informacion academica",text_color="black",font=("Papernotes",25))
+#         jijiji.place(x=10,y=25)
 
 
-        # ob=Medicos(tip_doc.getEntri)
+#         # ob=Medicos(tip_doc.getEntri)
 
-        ob = None
+#         ob = None
 
-        # ob.setExpLaboral()
-        def registrarMedico():
-            global ob
-            ob=Medicos(tip_doc.getEntri(),identificacionn.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),fecha_na.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
-            print(ob.getNombres())
+#         # ob.setExpLaboral()
+#         def registrarMedico():
+#             global ob
+#             ob=Medicos(tip_doc.getEntri(),identificacionn.getEntri(),fcha_exp.getEntri(),lugar_exp.getEntri(),nombre.getEntri(),apellido1.getEntri(),apellido2.getEntri(),fecha_na.getEntri(),genero.getEntri(),sexo.getEntri(),telefono.getEntri(),email.getEntri(),especialidad.getEntri())
+#             print(ob.getNombres())
 
 
 
@@ -1107,109 +1631,109 @@ def main():
 
 
 
-        def reacademicos():
-            # global framejose
-            perm.destroy()
-            frame1.destroy()
-            ventana.geometry("1250x700")
+        # def reacademicos():
+        #     # global framejose
+        #     perm.destroy()
+        #     frame1.destroy()
+        #     ventana.geometry("1250x700")
 
-            frame2=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
-            frame2.place(x=0,y=0)
+        #     frame2=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
+        #     frame2.place(x=0,y=0)
 
-            lbltitulo2=CTkLabel(frame2,text="Registrar informacion academica ",font=("Ready For Fall",30))
-            lbltitulo2.place(x=330,y=50)
+        #     lbltitulo2=CTkLabel(frame2,text="Registrar informacion academica ",font=("Ready For Fall",30))
+        #     lbltitulo2.place(x=330,y=50)
 
-            imgfra= Image.open("hp.png")
-            imgfra = imgfra.resize((100, 100))
-            imagenn = CTkImage(light_image=imgfra, size=(100, 100))
+        #     imgfra= Image.open("hp.png")
+        #     imgfra = imgfra.resize((100, 100))
+        #     imagenn = CTkImage(light_image=imgfra, size=(100, 100))
 
-            lblformulario3 = CTkLabel(
-                master=frame2, 
-                image=imagenn,
-                text=""
-            )
-            lblformulario3.place(x=900, y=20)
+        #     lblformulario3 = CTkLabel(
+        #         master=frame2, 
+        #         image=imagenn,
+        #         text=""
+        #     )
+        #     lblformulario3.place(x=900, y=20)
 
-            framejose=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
-            framejose.place(x=25,y=150)
+        #     framejose=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
+        #     framejose.place(x=25,y=150)
 
-            tituloa=Sipi(framejose,"Titulo:",250,100,200)
-            tituloa.place(x=50,y=50)
+        #     tituloa=Sipi(framejose,"Titulo:",250,100,200)
+        #     tituloa.place(x=50,y=50)
 
-            institucion=Sipi(framejose,"Institución:",250,100,200)
-            institucion.place(x=300,y=50)
+        #     institucion=Sipi(framejose,"Institución:",250,100,200)
+        #     institucion.place(x=300,y=50)
 
-            fehcaini=Date(framejose,"Fecha inicio:")
-            fehcaini.place(x=600,y=50)
+        #     fehcaini=Date(framejose,"Fecha inicio:")
+        #     fehcaini.place(x=600,y=50)
 
-            fechafin=Date(framejose,"Fecha de finalización")
-            fechafin.place(x=800,y=50)
+        #     fechafin=Date(framejose,"Fecha de finalización")
+        #     fechafin.place(x=800,y=50)
 
-            # especialidad=Sipi(framejose,"Especialización",250,100,200)
-            # especialidad.place(x=50,y=150)
+        #     # especialidad=Sipi(framejose,"Especialización",250,100,200)
+        #     # especialidad.place(x=50,y=150)
 
-            btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarAcdd())
-            btnguardar.place(x=550,y=260)
+        #     btnguardar=CTkButton(framejose,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registrarAcdd())
+        #     btnguardar.place(x=550,y=260)
 
-            reexl=CTkFrame(ventana,width=340,height=80,border_width=5,border_color="#0a9396",fg_color="#90e0ef")
-            reexl.place(x=700,y=500)
-            reexl.bind("<Button-1>",lambda v:registrarEl())
+        #     reexl=CTkFrame(ventana,width=340,height=80,border_width=5,border_color="#0a9396",fg_color="#90e0ef")
+        #     reexl.place(x=700,y=500)
+        #     reexl.bind("<Button-1>",lambda v:registrarEl())
 
-            titulo1=CTkLabel(reexl,text="Registrar experiencia laboral",text_color="black",font=("Papernotes",25))
-            titulo1.place(x=10,y=25)
+        #     titulo1=CTkLabel(reexl,text="Registrar experiencia laboral",text_color="black",font=("Papernotes",25))
+        #     titulo1.place(x=10,y=25)
 
-            def registrarAcdd():
-                global ob
+            # def registrarAcdd():
+            #     global ob
 
-                ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
+            #     ob.setAcademicos(tituloa.getEntri(),institucion.getEntri(),fehcaini.getEntri(),fechafin.getEntri(),)
 
-            def registrarEl():
-                reexl.destroy()
-                framejose.destroy()
-                frame2.destroy()
+            # def registrarEl():
+            #     reexl.destroy()
+            #     framejose.destroy()
+            #     frame2.destroy()
 
-            framee=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
-            framee.place(x=0,y=0)
+            # framee=CTkFrame(ventana,width=1250,height=150,border_width=5,border_color="#ff758f",fg_color="#fff0f3")
+            # framee.place(x=0,y=0)
 
-            lbltitulo4=CTkLabel(framee,text="Registrar experiencia laboral ",font=("Ready For Fall",30))
-            lbltitulo4.place(x=330,y=50)
+            # lbltitulo4=CTkLabel(framee,text="Registrar experiencia laboral ",font=("Ready For Fall",30))
+            # lbltitulo4.place(x=330,y=50)
 
-            imgfra= Image.open("hp.png")
-            imgfra = imgfra.resize((100, 100))
-            imagenn = CTkImage(light_image=imgfra, size=(100, 100))
+            # imgfra= Image.open("hp.png")
+            # imgfra = imgfra.resize((100, 100))
+            # imagenn = CTkImage(light_image=imgfra, size=(100, 100))
 
-            lblformulario3 = CTkLabel(
-                master=framee, 
-                image=imagenn,
-                text=""
-            )
-            lblformulario3.place(x=900, y=20)
+            # lblformulario3 = CTkLabel(
+            #     master=framee, 
+            #     image=imagenn,
+            #     text=""
+            # )
+            # lblformulario3.place(x=900, y=20)
 
-            frameel=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
-            frameel.place(x=25,y=150)
+            # frameel=CTkFrame(ventana,fg_color="white",width=1200,height=330,border_width=3,border_color="black")
+            # frameel.place(x=25,y=150)
 
-            empresa=Sipi(frameel,"Empresa:",250,100,200)
-            empresa.place(x=50,y=50)
+            # empresa=Sipi(frameel,"Empresa:",250,100,200)
+            # empresa.place(x=50,y=50)
 
-            cargo=Sipi(frameel,"Cargo:",250,100,200)
-            cargo.place(x=300,y=50)
+            # cargo=Sipi(frameel,"Cargo:",250,100,200)
+            # cargo.place(x=300,y=50)
 
-            fehcaini1=Date(frameel,"Fecha inicio:")
-            fehcaini1.place(x=600,y=50)
+            # fehcaini1=Date(frameel,"Fecha inicio:")
+            # fehcaini1.place(x=600,y=50)
 
-            fechafin1=Date(frameel,"Fecha de finalización:")
-            fechafin1.place(x=800,y=50)
+            # fechafin1=Date(frameel,"Fecha de finalización:")
+            # fechafin1.place(x=800,y=50)
 
-            # especialidad1=Sipi(frameel,"Especialización:",250,100,200)
-            # especialidad1.place(x=50,y=150)
+            # # especialidad1=Sipi(frameel,"Especialización:",250,100,200)
+            # # especialidad1.place(x=50,y=150)
 
-            btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registraExpl())
-            btnguardar1.place(x=550,y=260)
+            # btnguardar1=CTkButton(frameel,border_width=5,border_color="#8338ec",text="Guardar",font=("Papernotes",25),width=120,height=40,fg_color="#e7c6ff",hover_color="#ff99c8",text_color="black",command=lambda:registraExpl())
+            # btnguardar1.place(x=550,y=260)
 
-            def registraExpl():
-                global ob
+            # def registraExpl():
+            #     global ob
 
-                ob.setExpLaboral(empresa.getEntri(),cargo.getEntri(),fechafin1.getEntri(),fechafin1.getEntri())
+            #     ob.setExpLaboral(empresa.getEntri(),cargo.getEntri(),fechafin1.getEntri(),fechafin1.getEntri())
 
 
 
@@ -1260,56 +1784,56 @@ def main():
 
 
 
-class Menu(CTkFrame):
+# class Menu(CTkFrame):
 
 
-    def __init__(self, master,titulo,ancho,largo,imagen):
-        super().__init__(master,width=ancho,height=largo,fg_color="#BBF5BF",border_color="#386641",border_width=5)
-        self.titulo=titulo
-        # self.titulo.place(x=50,y=45)
-        image = Image.open(imagen)
-        image = image.resize((100, 100)) 
+#     def __init__(self, master,titulo,ancho,largo,imagen):
+#         super().__init__(master,width=ancho,height=largo,fg_color="#BBF5BF",border_color="#386641",border_width=5)
+#         self.titulo=titulo
+#         # self.titulo.place(x=50,y=45)
+#         image = Image.open(imagen)
+#         image = image.resize((100, 100)) 
         
         
-        self.ctk_image = CTkImage(light_image=image, size=(100, 100))
+#         self.ctk_image = CTkImage(light_image=image, size=(100, 100))
         
     
-        lblimg = CTkLabel(self, image=self.ctk_image, text="")
-        lblimg.place(x=125, y=55)
+#         lblimg = CTkLabel(self, image=self.ctk_image, text="")
+#         lblimg.place(x=125, y=55)
 
-        self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
-        self.title_label.place(x=17, y=10)
-
-
-
-
-
-#jose tu papa 
-class Sipi(CTkFrame):
-    def __init__(self, master,titulo,ancho,largo,largo2):
-        super().__init__(master, width=ancho,height=largo,fg_color="white")
-        self.titulo=titulo
-        tituloE = CTkLabel(self,text=self.titulo,font=("Papernotes",25),text_color="black")
-        tituloE.place(x=20,y=12)
-        self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
-        self.caja.place(x=20,y=50)
-    def getEntri(self):
-        return self.caja.get()
+#         self.title_label = CTkLabel(self, text=titulo,font=("Ready For Fall",25))
+#         self.title_label.place(x=17, y=10)
 
 
 
 
-class Nopi(CTkFrame):
-    def __init__(self, master, titulo,ancho,largo,opciones,largo2):
-        super().__init__(master,width=ancho,height=largo,fg_color="white")
-        self.titulo=titulo
-        ttlo=CTkLabel(self,text=self.titulo,font=("Papernotes",25))
-        ttlo.place(x=20,y=12)
-        self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18),dropdown_fg_color="#fae0e4",button_hover_color="#ff7096",button_color="#e7c6ff")
-        self.combo.place(x=20,y=50)
 
-    def getEntri(self):
-        return self.combo.get()
+# #jose tu papa 
+# class Sipi(CTkFrame):
+#     def __init__(self, master,titulo,ancho,largo,largo2):
+#         super().__init__(master, width=ancho,height=largo,fg_color="white")
+#         self.titulo=titulo
+#         tituloE = CTkLabel(self,text=self.titulo,font=("Papernotes",25),text_color="black")
+#         tituloE.place(x=20,y=12)
+#         self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
+#         self.caja.place(x=20,y=50)
+#     def getEntri(self):
+#         return self.caja.get()
+
+
+
+
+# class Nopi(CTkFrame):
+#     def __init__(self, master, titulo,ancho,largo,opciones,largo2):
+#         super().__init__(master,width=ancho,height=largo,fg_color="white")
+#         self.titulo=titulo
+#         ttlo=CTkLabel(self,text=self.titulo,font=("Papernotes",25))
+#         ttlo.place(x=20,y=12)
+#         self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18),dropdown_fg_color="#fae0e4",button_hover_color="#ff7096",button_color="#e7c6ff")
+#         self.combo.place(x=20,y=50)
+
+#     def getEntri(self):
+#         return self.combo.cget("values")
     
 
 
@@ -1404,51 +1928,6 @@ main()
 
 
 #jose tu papa 
-class Sipi(CTkFrame):
-    def __init__(self, master,titulo,ancho,largo,largo2):
-        super().__init__(master, width=ancho,height=largo,fg_color="white")
-        self.titulo=titulo
-        tituloE = CTkLabel(self,text=self.titulo,font=("Papernotes",25),text_color="black")
-        tituloE.place(x=20,y=12)
-        self.caja=CTkEntry(self,border_color="#38184C",border_width=3,width=largo2,fg_color="white",text_color="black")
-        self.caja.place(x=20,y=50)
-    def getEntri(self):
-        return self.caja.get()
-
-
-
-
-class Nopi(CTkFrame):
-    def __init__(self, master, titulo,ancho,largo,opciones,largo2):
-        super().__init__(master,width=ancho,height=largo,fg_color="white")
-        self.titulo=titulo
-        ttlo=CTkLabel(self,text=self.titulo,font=("Papernotes",25))
-        ttlo.place(x=20,y=12)
-        self.combo=CTkComboBox(self,values=opciones,border_color="#38184C",border_width=3,width=largo2,font=("coolvetica rg",18),dropdown_fg_color="#fae0e4",button_hover_color="#ff7096",button_color="#e7c6ff")
-        self.combo.place(x=20,y=50)
-
-    def getEntri(self):
-        return self.combo.get()
-    
-
-
-
-
-
-class Date(CTkFrame):
-    def __init__(self, master, titulo):
-        super().__init__(master, width=250, height=100, fg_color="white")
-        self.titulo = titulo
-    
-        ttlD = CTkLabel(self, text=self.titulo, font=("Papernotes", 25))
-        ttlD.place(x=20,y=12)
-        
-        self.j = DateEntry(self, width=20, background='#ff8fab', foreground='black', borderwidth=3, font=('Papernotes', 12))
-        self.j.place(x=40,y=70)
-    def getEntri(self):
-        return self.j.get()
-
-
 
 
 

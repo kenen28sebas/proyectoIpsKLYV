@@ -1,5 +1,5 @@
-from persona import *
-from personalM import *
+from clases.persona import *
+from clases.personalM import *
 # from academicos import *
 # from experienciaL import *
 

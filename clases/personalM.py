@@ -18,6 +18,10 @@ class Medicos(Persona):
     
     def getExpLaboral(self ):
         return self.__expLaboral 
+    
+    def getExpLaboralultimo(self ):
+        return self.__expLaboral[len(self.__expLaboral)-1] 
+        
         
     def setAcademicos (self,titulo,institucion,fechaInicio,fechaFin):
         acad=Academicos(titulo,institucion,fechaInicio,fechaFin)
@@ -25,6 +29,9 @@ class Medicos(Persona):
 
     def getAcademicos(self):
         return self.__academicos
+    
+    def getAcademicosultimo(self):
+        return self.__academicos[len(self.__academicos)-1]
         
 #especialidad de jose 
     def getEspecialidad(self):

@@ -1,4 +1,4 @@
-from th import *
+from clases.th import *
 
 import pymongo
 cliente=pymongo.MongoClient("mongodb://localhost:27017/")
@@ -10,10 +10,11 @@ ips = basedatos["ips"]
 paci = basedatos["Paciente"]
 per = basedatos["Persona"]
 solicitud = basedatos["Solicitud_de_servicios"]
+med = basedatos["Medico"]
 
 
 
-def llenarArchivo (objeto):
+def llenarArchivomd (objeto,collection):
         archivo = {
             "tipo_documento" : objeto.getTipoDoc(),
             "fecha_expedicion" : objeto.getFechaExp(),
@@ -59,7 +60,7 @@ def llenarArchivo (objeto):
                 
             
                 
-        return archivo
+        collection.insert_one(archivo)
     
 print("hola")
 
@@ -68,4 +69,3 @@ p1=TalentoH("CC", 11936212, "12-07-2002", "Cali", "Jose Daniel", "Cardenas", "Co
 pm5 = p1.crearPm("CC", 11936212, "12-07-2002", "Cali", "Jose Daniel", "Cardenas", "Contreras", "05-03-1977", "hombre", "masculino","3124564567", "jose.cotreras@gmail.com", "Ortopedista" )
 pm5.setAcademicos("Doctor", "Sena", "15-01-2001", "30-12-2006" )
 
-med.insert_one(llenarArchivo(pm5))
