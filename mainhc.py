@@ -171,14 +171,19 @@ def registrarHistoria():
     frame = ctk.CTkFrame(ventana, fg_color= "white", width=850, height=550) 
     frame.place(x=20, y=20)
     botonAnan = ctk.CTkButton(frame, text= "Anamnesis",command= lambda:abrirAnamnesis())
-    botonAnan.place(x=100, y=400)
+    botonAnan.place(x=50, y=400)
     boton = ctk.CTkButton(frame, text='Fórmula Médica', command=lambda: abrirFormula())
-    boton.place(x=300,y=400)
+    boton.place(x=200,y=400)
     botonSoli =ctk.CTkButton(frame, text= "Solicitud de Servicios", command= lambda:solicitudServicios())
-    botonSoli.place(x=500,y=400)
-    
+    botonSoli.place(x=350,y=400)
+    botonSig = ctk.CTkButton(frame,text= "Signos Vitales",command= lambda:abrirSignosV() )
+    botonSig.place(x=500, y=400)
+    botonDiag = ctk.CTkButton(frame, text= "Diagnostico",command= lambda:abrirDiagnostico() )
+    botonDiag.place(x=700, y=400)
     def abrirAnamnesis():
         vi = ctk.CTkToplevel(fg_color="white")
+        vi.lift()
+        vi.attributes('-topmost', True)
         vi.geometry("1300x700")
         vi.resizable(width=0,height=0)  
         titulo= ctk.CTkLabel(vi, text="Anamnesis", text_color="black",fg_color="white", font=("212 Moon Child Sans", 50))
@@ -186,8 +191,8 @@ def registrarHistoria():
 
         vIndex = ctk.CTkFrame(vi,fg_color='white',width=400,height=500,border_width=5,border_color="black")
         vIndex.place(x=30,y=100)
-        txtRegistro = ctk.CTkLabel(vIndex,text="Consulta",text_color="black",fg_color="#fea6a2", font=("212 Moon Child Sans", 20))
-        txtRegistro.place(x=200,y=34)  
+        txtRegistro = ctk.CTkLabel(vIndex,text="Consulta",text_color="black", font=("212 Moon Child Sans", 30))
+        txtRegistro.place(x=100,y=34)  
         motivo_consulta= EntradasTexto(vIndex, "Motivo de la consulta")
         motivo_consulta.place(x=50, y=100)
         enfermedad_actual = EntradasTexto(vIndex, "Enfermedad actual")
@@ -201,8 +206,8 @@ def registrarHistoria():
 
         veIndex = ctk.CTkFrame(vi,fg_color='white',width=400,height=500, border_width=5,border_color="black")
         veIndex.place(x=450,y=100)
-        txtRegistro = ctk.CTkLabel(veIndex,text="Antecedentes Personales",text_color="black",fg_color="#fea6a2", font=("212 Moon Child Sans", 20))
-        txtRegistro.place(x=180,y=34)
+        txtRegistro = ctk.CTkLabel(veIndex,text="Antecedentes Personales",text_color="black", font=("212 Moon Child Sans", 30))
+        txtRegistro.place(x=100,y=34)
         alergias = EntradasTexto(veIndex, "Alergias")
         alergias.place(x=50, y=100)
         enfer = EntradasTexto(veIndex, "Enfermedades")
@@ -212,8 +217,8 @@ def registrarHistoria():
 
         venIndex = ctk.CTkFrame(vi,fg_color='white',width=400,height=500, border_width=5,border_color="black")
         venIndex.place(x=870,y=100)
-        txtRegistro = ctk.CTkLabel(venIndex,text="Antecedentes Familiares",text_color="black",fg_color="#fea6a2", font=("212 Moon Child Sans", 20))
-        txtRegistro.place(x=150,y=34)
+        txtRegistro = ctk.CTkLabel(venIndex,text="Antecedentes Familiares",text_color="black", font=("212 Moon Child Sans", 30))
+        txtRegistro.place(x=100,y=34)
         alergias = EntradasTexto(venIndex, "Alergias")
         alergias.place(x=50, y=100)
         enfer = EntradasTexto(venIndex, "Enfermedades")
@@ -226,17 +231,69 @@ def registrarHistoria():
 
 
         vi.mainloop() 
+    
+    
+    def abrirSignosV():
+        vy = ctk.CTk()
+        vy.geometry("800x800")
+        vy.resizable(width=0,height=0) 
+        vy.lift()
+        vy.attributes('-topmost', True) 
+
+
+        vIndex = ctk.CTkFrame(vy,fg_color='white',width=800,height=600)
+        vIndex.place(x=30,y=30)
+        txtRegistro = ctk.CTkLabel(vIndex,text="Signos Vitales",text_color="black",fg_color="white", font=("212 Moon Child Sans", 30))
+        txtRegistro.place(x=300,y=20)    
                 
+        frCardiaca=EntradasTexto(vy,"Frecuencia cardiaca" )
+        frCardiaca.place(x=50,y=100)
+
+        frResp=EntradasTexto(vy,"Frecuencia respiratoria")
+        frResp.place(x=400,y=100)
+
+        tadis = EntradasTexto(vy, "Tension arterial Diastólica")
+        tadis.place(x=50, y=190)
+
+        taasis = EntradasTexto(vy, "Tensión arterial sistólica")
+        taasis.place(x=400, y=190)
+
+        tamed = EntradasTexto(vy, "Tension arterial media")
+        tamed.place(x=50,y=280)
+
+        pulso = EntradasTexto(vy, "Pulsoximatria")
+        pulso.place(x=400, y=280)
+
+        temp = EntradasTexto(vy, "Temperatura")
+        temp.place(x=50,y=370)
+
+        peso = EntradasTexto(vy, "Peso")
+        peso.place(x=400,y=370)
+
+        talla = EntradasTexto(vy, "Talla")
+        talla.place(x=50, y=460)
+
+        masa = EntradasTexto(vy, "Masa")
+        masa.place(x=400,y=460)
+
+        superf = EntradasTexto(vy, "Superficie corporal")
+        superf.place(x=50, y=550)
+                        
+                        
+                        
+        vy.mainloop()
         
-           
+               
     def abrirFormula():
         vi = ctk.CTkToplevel()
         vi.geometry("700x600")
-        vi.resizable(width=0,height=0)  
+        vi.resizable(width=0,height=0) 
+        vi.lift()
+        vi.attributes('-topmost', True) 
 
         vIndex = ctk.CTkFrame(vi,fg_color='white',width=660,height=560)
         vIndex.place(x=30,y=30)
-        txtRegistro = ctk.CTkLabel(vIndex,text="Fórmula Medica",text_color="black",fg_color="white", font=("212 Moon Child Sans", 20))
+        txtRegistro = ctk.CTkLabel(vIndex,text="Fórmula Medica",text_color="black",fg_color="white", font=("212 Moon Child Sans", 30))
         txtRegistro.place(x=200,y=34)  
         medicamento = EntradasTexto(vIndex, "Medicamento")
         medicamento.place(x=50, y=100)
@@ -272,11 +329,13 @@ def registrarHistoria():
     def solicitudServicios():
         vi = ctk.CTkToplevel()
         vi.geometry("700x540")
-        vi.resizable(width=0,height=0)  
+        vi.resizable(width=0,height=0)
+        vi.lift()
+        vi.attributes('-topmost', True)  
 
         vIndex = ctk.CTkFrame(vi,fg_color='white',width=660,height=560)
         vIndex.place(x=30,y=30)
-        txtRegistro = ctk.CTkLabel(vIndex,text="Solicitud de Servicios",text_color="black",fg_color="white", font=("212 Moon Child Sans", 20))
+        txtRegistro = ctk.CTkLabel(vIndex,text="Solicitud de Servicios",text_color="black",fg_color="white", font=("212 Moon Child Sans", 30))
         txtRegistro.place(x=200,y=34)  
         codigo = EntradasTexto(vIndex, "Codigo")
         codigo.place(x=50, y=100)
@@ -301,10 +360,37 @@ def registrarHistoria():
         boton.place(x=500, y=450)
 
 
-
-
-
         vi.mainloop() 
+        
+    def abrirDiagnostico():
+        vi = CTkToplevel()
+        vi.geometry("600x600")
+        vi.resizable(width=0,height=0)  
+        vi.lift()
+        vi.attributes('-topmost', True)
+
+        vIndex = ctk.CTkFrame(vi,fg_color='white',width=600,height=500)
+        vIndex.place(x=10,y=30)
+        txtRegistro = ctk.CTkLabel(vIndex,text="Diagnostico",text_color="black",fg_color="white", font=("212 Moon Child Sans", 30))
+        txtRegistro.place(x=200,y=34)    
+                
+
+        codigo_diag = EntradasTexto(vIndex, "Código del diagnostico")
+        codigo_diag.place(x=100,y=100)
+
+        nombre_diag = EntradasTexto(vIndex, "Nombre del Diagnóstico")
+        nombre_diag.place(x=100, y=170)
+
+        hallasgoz = EntradasTexto(vIndex, "Hallazgos")
+        hallasgoz.place(x=100, y=240)
+
+        descripcion = EntradasTexto(vIndex, "Descripcion")
+        descripcion.place(x=100, y=310)
+        
+        boton = ctk.CTkButton(vIndex, text= "Guardar")
+        boton.place(x=400, y=450)
+
+        vi.mainloop()  
     
         
     

@@ -5,6 +5,7 @@ from PIL import Image
 ventanita =CTk(fg_color="white")
 ventanita.title("Menu personal medico")
 ventanita.geometry("1250x500")
+ventanita.resizable(False,False)
 def salir():
     ventanita.destroy()
 
@@ -32,7 +33,7 @@ titulo.place(x=400, y=40)
 
 
 
-formularioIm = Image.open("C:\\Users\\linit\\OneDrive\Escritorio\\proyectoIpsKLYV\\hp.png")
+formularioIm = Image.open("hp.png")
 formularioIm = formularioIm.resize((100, 100))
 imagen = CTkImage(light_image=formularioIm, size=(100, 100))
 
@@ -65,14 +66,14 @@ class Menu(CTkFrame):
         self.title_label.place(x=17, y=10)
 
 
-opcion1=Menu(ventanita,"Consultar mi hoja de vida",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\lupa.png")
+opcion1=Menu(ventanita,"Consultar mi hoja de vida",350,170,"lupa.png")
 
 opcion1.place(x=50,y=150)
 
-opcion2=Menu(ventanita,"Solicitar Actualizacion",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\update.png")
+opcion2=Menu(ventanita,"Solicitar Actualizacion",350,170,"update.png")
 opcion2.place(x=450,y=150)
 
-opcion3=Menu(ventanita,"Actualizar Datos Basicos",350,170,"C:\\Users\\linit\\OneDrive\\Escritorio\\proyectoIpsKLYV\\update2.png")
+opcion3=Menu(ventanita,"Actualizar Datos Basicos",350,170,"update2.png")
 
 opcion3.place(x=850,y=150)
 

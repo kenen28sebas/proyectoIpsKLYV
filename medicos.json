@@ -1,0 +1,222 @@
+[
+    {
+        "tipo_documento": "Cédula",
+        "identificacion": "123456789",
+        "fecha_expedicion": "2010-01-01",
+        "lugar_expedicion": "Bogotá",
+        "nombres": "Juan",
+        "apellido1": "Pérez",
+        "apellido2": "Sánchez",
+        "fecha_nacimiento": "1985-05-15",
+        "genero": "Masculino",
+        "sexo": "M",
+        "email": "juan.perez@hospital.com",
+        "telefono": "3001234567",
+        "experiencias_laborales": [
+            {
+                "empresa": "Hospital General",
+                "cargo": "Cardiólogo",
+                "fecha_inicio": "2015-03-01",
+                "fecha_fin": "2022-02-28"
+            },
+            {
+                "empresa": "Clínica del Corazón",
+                "cargo": "Médico asistente",
+                "fecha_inicio": "2010-01-01",
+                "fecha_fin": "2015-02-28"
+            }
+        ],
+        "academicos": [
+            {
+                "titulo": "Medicina",
+                "institucion": "Universidad Nacional",
+                "fecha_inicio": "2003-01-01",
+                "fecha_fin": "2009-12-31",
+                "especialidad": "Cardiología"
+            },
+            {
+                "titulo": "Especialización en Cardiología",
+                "institucion": "Universidad Javeriana",
+                "fecha_inicio": "2010-01-01",
+                "fecha_fin": "2012-12-31",
+                "especialidad": "Cardiología"
+            }
+        ]
+    },
+    {
+        "tipo_documento": "Cédula",
+        "identificacion": "987654321",
+        "fecha_expedicion": "2012-05-12",
+        "lugar_expedicion": "Medellín",
+        "nombres": "María",
+        "apellido1": "López",
+        "apellido2": "García",
+        "fecha_nacimiento": "1990-07-20",
+        "genero": "Femenino",
+        "sexo": "F",
+        "email": "maria.lopez@hospital.com",
+        "telefono": "3109876543",
+        "experiencias_laborales": [
+            {
+                "empresa": "Clínica Pediátrica",
+                "cargo": "Pediatra",
+                "fecha_inicio": "2015-04-01",
+                "fecha_fin": "2022-02-28"
+            },
+            {
+                "empresa": "Centro Médico Infantil",
+                "cargo": "Médico residente",
+                "fecha_inicio": "2012-01-01",
+                "fecha_fin": "2015-03-31"
+            }
+        ],
+        "academicos": [
+            {
+                "titulo": "Medicina",
+                "institucion": "Universidad de Antioquia",
+                "fecha_inicio": "2008-01-01",
+                "fecha_fin": "2013-12-31",
+                "especialidad": "Pediatría"
+            },
+            {
+                "titulo": "Especialización en Pediatría",
+                "institucion": "Universidad del Valle",
+                "fecha_inicio": "2014-01-01",
+                "fecha_fin": "2016-12-31",
+                "especialidad": "Pediatría"
+            }
+        ]
+    },
+    {
+        "tipo_documento": "Cédula",
+        "identificacion": "456789123",
+        "fecha_expedicion": "2011-09-10",
+        "lugar_expedicion": "Cali",
+        "nombres": "Carlos",
+        "apellido1": "Martínez",
+        "apellido2": "Alvarez",
+        "fecha_nacimiento": "1988-02-18",
+        "genero": "Masculino",
+        "sexo": "M",
+        "email": "carlos.martinez@hospital.com",
+        "telefono": "3116547890",
+        "experiencias_laborales": [
+            {
+                "empresa": "Clínica Ortopédica",
+                "cargo": "Ortopedista",
+                "fecha_inicio": "2016-06-01",
+                "fecha_fin": "2022-02-28"
+            },
+            {
+                "empresa": "Hospital de Trauma",
+                "cargo": "Médico general",
+                "fecha_inicio": "2011-01-01",
+                "fecha_fin": "2016-05-31"
+            }
+        ],
+        "academicos": [
+            {
+                "titulo": "Medicina",
+                "institucion": "Universidad del Valle",
+                "fecha_inicio": "2006-01-01",
+                "fecha_fin": "2011-12-31",
+                "especialidad": "Ortopedia"
+            },
+            {
+                "titulo": "Especialización en Ortopedia",
+                "institucion": "Universidad del Rosario",
+                "fecha_inicio": "2012-01-01",
+                "fecha_fin": "2014-12-31",
+                "especialidad": "Ortopedia"
+            }
+        ]
+    },
+    {
+        "tipo_documento": "Cédula",
+        "identificacion": "321654987",
+        "fecha_expedicion": "2013-03-15",
+        "lugar_expedicion": "Barranquilla",
+        "nombres": "Ana",
+        "apellido1": "Gómez",
+        "apellido2": "Ramírez",
+        "fecha_nacimiento": "1992-11-22",
+        "genero": "Femenino",
+        "sexo": "F",
+        "email": "ana.gomez@hospital.com",
+        "telefono": "3159871234",
+        "experiencias_laborales": [
+            {
+                "empresa": "Clínica de Neurología",
+                "cargo": "Neuróloga",
+                "fecha_inicio": "2018-02-01",
+                "fecha_fin": "2022-02-28"
+            },
+            {
+                "empresa": "Hospital Universitario",
+                "cargo": "Médico residente",
+                "fecha_inicio": "2013-01-01",
+                "fecha_fin": "2017-12-31"
+            }
+        ],
+        "academicos": [
+            {
+                "titulo": "Medicina",
+                "institucion": "Universidad del Atlántico",
+                "fecha_inicio": "2009-01-01",
+                "fecha_fin": "2014-12-31",
+                "especialidad": "Neurología"
+            },
+            {
+                "titulo": "Especialización en Neurología",
+                "institucion": "Universidad de los Andes",
+                "fecha_inicio": "2015-01-01",
+                "fecha_fin": "2017-12-31",
+                "especialidad": "Neurología"
+            }
+        ]
+    },
+    {
+        "tipo_documento": "Cédula",
+        "identificacion": "789123456",
+        "fecha_expedicion": "2015-07-20",
+        "lugar_expedicion": "Medellín",
+        "nombres": "Luis",
+        "apellido1": "Rodríguez",
+        "apellido2": "Torres",
+        "fecha_nacimiento": "1995-03-30",
+        "genero": "Masculino",
+        "sexo": "M",
+        "email": "luis.rodriguez@hospital.com",
+        "telefono": "3009876543",
+        "experiencias_laborales": [
+            {
+                "empresa": "Clínica de Dermatología",
+                "cargo": "Dermatólogo",
+                "fecha_inicio": "2020-01-01",
+                "fecha_fin": "2022-02-28"
+            },
+            {
+                "empresa": "Hospital San Juan",
+                "cargo": "Médico general",
+                "fecha_inicio": "2015-01-01",
+                "fecha_fin": "2019-12-31"
+            }
+        ],
+        "academicos": [
+            {
+                "titulo": "Medicina",
+                "institucion": "Universidad de Medellín",
+                "fecha_inicio": "2012-01-01",
+                "fecha_fin": "2017-12-31",
+                "especialidad": "Dermatología"
+            },
+            {
+                "titulo": "Especialización en Dermatología",
+                "institucion": "Universidad del Rosario",
+                "fecha_inicio": "2018-01-01",
+                "fecha_fin": "2020-12-31",
+                "especialidad": "Dermatología"
+            }
+        ]
+    }
+]
