@@ -56,14 +56,15 @@ def main():
 
 
     global formularioIm2,imagen
-    formularioIm2 = Image.open("hp.png")
+    formularioIm2= Image.open("hp.png")
     formularioIm2 = formularioIm2.resize((100, 100))
-
-    # Crear una referencia para que la imagen no se recolecte
     imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
 
-    # Crear un label y asignarle la imagen
-    lblformulario2 = CTkLabel(master=cuadrito, image=imagen, text="")
+    lblformulario2 = CTkLabel(
+        master=cuadrito, 
+        image=imagen,
+        text=""
+    )
     lblformulario2.place(x=40, y=10)
 
     

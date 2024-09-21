@@ -77,7 +77,7 @@ l = datetime.datetime(2024,9,25,8,20)
 import pymongo
 cliente=pymongo.MongoClient("mongodb://localhost:27017/")
 print(cliente.list_database_names())
-basedatos=cliente["proyecto_kenenitos"]
+basedatos=cliente["proyecto_IPS"]
 cita = basedatos["Cita"]
 
 
@@ -97,3 +97,5 @@ def llenarArchivo (objeto):
         return archivo
     
 archivoC = llenarArchivo(p)
+
+cita.insert_one(archivoC)
