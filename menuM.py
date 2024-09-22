@@ -502,10 +502,10 @@ def main():
                     acains.place(x=20,y=50)
 
 
-                    fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
+                    fechaini=CTkLabel(acadm,text=f"Fecha inicio:{i["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
                     fechaini.place(x=20,y=80)
 
-                    fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fechaFin"]}",text_color="black",font=("Ready For Fall",18))
+                    fechafn=CTkLabel(acadm,text=f"Fecha fin:{i["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))
                     fechafn.place(x=20,y=110)
 
                     y =y+250
@@ -517,7 +517,7 @@ def main():
                 expL.destroy()
                 ventana.geometry("1250x700")
                 y=200
-                for e in documentos[0]["experiencia"]:
+                for e in documentos[0]["experiencias_laborales"]:
 
                     experiencias=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="black",fg_color="white")
                     experiencias.place(x=500,y=y)
@@ -529,7 +529,7 @@ def main():
                     cargo=CTkLabel(experiencias,text=f"Cargo:{e["cargo"]}",text_color="black",font=("Ready For Fall",18))
                     cargo.place(x=20,y=80)
 
-                    FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fechaInicio"]}",text_color="black",font=("Ready For Fall",18))
+                    FechaI=CTkLabel(experiencias,text=f"Fecha inicio:{e["fecha_inicio"]}",text_color="black",font=("Ready For Fall",18))
                     FechaI.place(x=20,y=110)
 
                     FechaF=CTkLabel(experiencias,text=f"Fecha fin:{e["fecha_fin"]}",text_color="black",font=("Ready For Fall",18))

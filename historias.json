@@ -1,0 +1,49 @@
+{
+    "tipo_documento": "Cédula de ciudadanía",
+    "numero_identificacion": "Número de identificación",
+    "consulta_medica": {
+      "enfermedad_actual": "Descripción de la enfermedad actual",
+      "fecha_consulta": "Fecha de la consulta",
+      "anexo": "Información adicional (anexo)",
+      "medico_consulta": "Nombre del médico que realizó la consulta"
+    },
+    "antecedentes_personales": {
+      "alergias": "Alergias personales",
+      "enfermedades": "Enfermedades personales"
+    },
+    "antecedentes_familiares": {
+      "alergias": "Alergias familiares",
+      "enfermedades": "Enfermedades familiares"
+    },
+    "formula_medica": {
+      "medicamento": "Nombre del medicamento",
+      "concentracion": "Concentración del medicamento",
+      "forma_farmaceutica": "Forma farmacéutica",
+      "dosis": "Dosis prescrita",
+      "via_administracion": "Vía de administración",
+      "frecuencia": "Frecuencia del medicamento",
+      "tiempo_tratamiento": "Duración del tratamiento",
+      "cantidad": "Cantidad prescrita",
+      "cantidad_letras": "Cantidad en letras",
+      "posologia": "Instrucciones de administración (posología)"
+    },
+    "diagnostico": {
+      "codigo": "Código del diagnóstico",
+      "nombre": "Nombre del diagnóstico",
+      "hallazgos": "Hallazgos clínicos",
+      "descripcion": "Descripción del diagnóstico"
+    },
+    "signos_vitales": {
+      "frecuencia_cardiaca": "Frecuencia cardíaca",
+      "frecuencia_respiratoria": "Frecuencia respiratoria",
+      "tension_arterial_diastolica": "Tensión arterial diastólica",
+      "tension_arterial_sistolica": "Tensión arterial sistólica",
+      "tension_arterial_media": "Tensión arterial media",
+      "pulsoximetria": "Nivel de pulsoximetría",
+      "temperatura": "Temperatura corporal",
+      "peso": "Peso del paciente",
+      "talla": "Talla del paciente",
+      "masa_corporal": "Índice de masa corporal"
+    }
+  }
+  

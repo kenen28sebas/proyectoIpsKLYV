@@ -193,6 +193,28 @@ class Ctcita (CTkFrame):
         
     def getter (self): 
         return self.lblFecha.cget("text")   
+    
+    def confirmarCita(funcion):
+            vnCita = CTkToplevel(ventana, width=500, height=500,fg_color="white")
+            vnCita.lift()
+            vnCita.attributes('-topmost', True)
+            cajaTexto1 = Sipi(vnCita,"doctor:",320, 80, 280)
+            cajaTexto1.place(x=40,y=100) 
+            cajaTexto = Sipi(vnCita,"consultorio:",320, 80, 280)
+            cajaTexto.place(x=40,y=200) 
+            
+            # fechaCi = f'{agenda.año},{agenda.mes},{dia},{},{}'
+            
+            
+            btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20),
+                                       command=funcion)
+            btncargarCita.place(x=100,y =300)
+            frame=CTkFrame(vnCita,width=400,height=80,border_width=5,border_color="black",fg_color="#f7c7db")
+            frame.place(x=0,y=0)
+            tituloframe=CTkLabel(frame,text="Crear Cita",font=("Ready For Fall",25),text_color="black")
+            tituloframe.place(x=130,y=20)
+            
+
         
          
         
@@ -254,6 +276,7 @@ class Calendario (CTkFrame):
                 self.cita = Ctcita(self.divLunes,horaFinal,texto,"#ff74b2")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
 
+    
         hora = datetime.datetime(2000,1,1,7,40)
         
         for ind in range(0,11):
@@ -384,3 +407,7 @@ class Calendario (CTkFrame):
             elif len(texto) > 1 :
                 self.cita = Ctcita(self.divdomingo,horaFinal,texto,"#ff74b2")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)   
+    
+    def cita(self):
+        return self.cita
+            
