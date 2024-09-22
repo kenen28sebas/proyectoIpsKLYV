@@ -257,6 +257,8 @@ class Calendario (CTkFrame):
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
 
     
+
+    
         hora = datetime.datetime(2000,1,1,7,40)
         
         for ind in range(0,11):
