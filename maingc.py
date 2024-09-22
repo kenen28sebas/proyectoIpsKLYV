@@ -37,8 +37,18 @@ def llenarobCita(fechad):
     return listacitas
 
 
+def crarCita(fechaCita,medico,consultorio,bdc,doc):
+    citac = Cita(fechaCita,medico,consultorio,bdc,doc)
+    listacitas.append(citac)
+    paciente.setCitas(citac)
+    
+    cita.insert_one(llenarArchivo(citac))
+    for i in range(0,7):
+        agenda.setDia(i+23)
+        lis = llenarobCita(f'{año},{mes},{i+23}')
+        agenda.getDiasSemanas(i).setCitas(lis)
 
-
+global agenda
 agenda = Agenda(año,mes,23)
 for i in range(0,7):
     agenda.setDia(i+23)
@@ -139,31 +149,68 @@ def opcionePaciente():
             height=510,
             fg_color="#44E3D3")
         secctionC.place(x=20,y=120)
-        agenda = Calendario(secctionC,agenda.getDiasSemanas(0).getCitas(),agenda.getDiasSemanas(1).getCitas(),agenda.getDiasSemanas(2).getCitas(),agenda.getDiasSemanas(3).getCitas(),agenda.getDiasSemanas(4).getCitas(),agenda.getDiasSemanas(5).getCitas(),agenda.getDiasSemanas(6).getCitas(),lambda v :confirmarCita())
-        agenda.place(x=0,y=0)
+        agenda1 = Calendario(secctionC,agenda.getDiasSemanas(0).getCitas(),agenda.getDiasSemanas(1).getCitas(),agenda.getDiasSemanas(2).getCitas(),agenda.getDiasSemanas(3).getCitas(),agenda.getDiasSemanas(4).getCitas(),agenda.getDiasSemanas(5).getCitas(),agenda.getDiasSemanas(6).getCitas(),lambda v :confirmarCita(3))
+        agenda1.place(x=0,y=0)
         
             
         
-    
-
 ventana = CTk(fg_color="white")
 
 ventana.geometry("1000x450")
-def confirmarCita():
-            vnCita = CTkToplevel(ventana, width=500, height=500,fg_color="white")
+def confirmarCita(dia):
+            global paciente,hora,horasD,horasDs
+            horasDs = []
+            horasD = []
+            
+             
+            print(horasD)    
+            vnCita = CTkToplevel(ventana, width=500, height=600,fg_color="white")
             vnCita.lift()
             vnCita.attributes('-topmost', True)
-            cajaTexto = Sipi(vnCita,"doctor:",320, 80, 280)
-            cajaTexto.place(x=40,y=100) 
-            cajaTexto = Sipi(vnCita,"consultorio:",320, 80, 280)
-            cajaTexto.place(x=40,y=200) 
-            btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20))
-            btncargarCita.place(x=100,y =300)
             frame=CTkFrame(vnCita,width=400,height=80,border_width=5,border_color="black",fg_color="#f7c7db")
             frame.place(x=0,y=0)
             tituloframe=CTkLabel(frame,text="Crear Cita",font=("Ready For Fall",25),text_color="black")
             tituloframe.place(x=130,y=20)
-
+            cajaTexto1 = Sipi(vnCita,"doctor:",320, 80, 280)
+            cajaTexto1.place(x=40,y=100) 
+            cajaTexto = Sipi(vnCita,"consultorio:",320, 80, 280)
+            cajaTexto.place(x=40,y=200)
+            
+            list1 = ["23","24","25","26","27","28","29"]
+            box = Nopi(vnCita,"dia:",320, 80,list1, 280)
+            box.place(x=40,y=300) 
+            
+            btndia = CTkButton(vnCita,text="=>",command=lambda:confirmHora())
+            btndia.place(x=200,y=30)
+            def confirmHora():  
+                hora = datetime.datetime(2000,1,1,7,40)
+                fechaCi = f'{agenda.año},{agenda.mes},{box.getEntri()}'
+                cul = cita.find({"fecha_cita":fechaCi}).sort("hora_consulta", pymongo.ASCENDING)
+                for i1 in range (0,13):
+                    hora = hora + datetime.timedelta(minutes=20)
+                    minuto = hora.minute
+                    if minuto == 0:
+                        minuto = "00"
+                    horaFinal = f'{hora.hour}:{minuto}'
+                    horasD.append(horaFinal)
+                for i in cul:
+                    h = i["hora_consulta"].split(":")
+                    horasDs.append(i["hora_consulta"])
+                for i in horasD:
+                    if i in horasDs:
+                        horasD.remove(i)    
+                print(horasD)    
+                box1 = Nopi(vnCita,"hora:",320, 80,horasD, 280)
+                box1.place(x=40,y=400) 
+                horaf1 = box1.getEntri().split(":")
+                fechaCi1 = f'{agenda.año},{agenda.mes},{box.getEntri()},{horaf1[0]},{horaf1[1]}'
+                print(fechaCi1)
+                fechas = datetime.datetime(int(agenda.año),int(agenda.mes),int(box.getEntri()),int(horaf1[0]),int(horaf1[1]))
+                
+                btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20),
+                                        command=lambda:crarCita(fechas,cajaTexto1.getEntri(),cajaTexto.getEntri(),cita,paciente.getIdentificacion()))
+                btncargarCita.place(x=100,y =500)
+                vnCita.destroy()
 
 def prueba ():
     print("hola")

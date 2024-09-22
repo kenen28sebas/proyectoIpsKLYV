@@ -193,6 +193,8 @@ class Ctcita (CTkFrame):
         
     def getter (self): 
         return self.lblFecha.cget("text")   
+    
+    
         
          
         
@@ -254,6 +256,7 @@ class Calendario (CTkFrame):
                 self.cita = Ctcita(self.divLunes,horaFinal,texto,"#ff74b2")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)
 
+    
         hora = datetime.datetime(2000,1,1,7,40)
         
         for ind in range(0,11):
@@ -384,3 +387,5 @@ class Calendario (CTkFrame):
             elif len(texto) > 1 :
                 self.cita = Ctcita(self.divdomingo,horaFinal,texto,"#ff74b2")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)   
+    
+            
