@@ -244,14 +244,16 @@ class Calendario (CTkFrame):
             horaFinal = f'{hora.hour}:{minuto}'
             texto = ""
             for i in citasl:
-                print(f'{i.getMedico()} lunes ')
+                # print(f'{i.getMedico()} lunes ')
                 if i.getHoraConsulta() == horaFinal:
                     texto = i.getMedico()
+                    print(f'{i.getMedico()} lunes 6666')
                     break
             if texto == "":    
                 self.cita = Ctcita(self.divLunes,horaFinal,"Vacio","white")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0) 
                 self.cita.bind("<Button-1>",evento) 
+                print(f'{i.getMedico()} lunes 5555')
             elif len(texto) > 1 :
                 self.cita = Ctcita(self.divLunes,horaFinal,texto,"#ff74b2")
                 self.cita.grid(row=ind+1, column=1, pady=1,padx=0)

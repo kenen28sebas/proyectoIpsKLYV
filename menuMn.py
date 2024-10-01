@@ -60,12 +60,12 @@ def main():
     formularioIm2 = formularioIm2.resize((100, 100))
     imagen = CTkImage(light_image=formularioIm2, size=(100, 100))
 
-    lblformulario2 = CTkLabel(
-        master=cuadrito, 
-        image=imagen,
-        text=""
-    )
-    lblformulario2.place(x=40, y=10)
+    # lblformulario2 = CTkLabel(
+    #     master=cuadrito, 
+    #     image=imagen,
+    #     text=""
+    # )
+    # lblformulario2.place(x=40, y=10)
 
     
 

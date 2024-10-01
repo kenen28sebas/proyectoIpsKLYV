@@ -6,7 +6,7 @@ import pymongo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 myDb=myclient["proyecto_IPS"]
-historias=myDb["Historias"]
+historias=myDb["Historia"]
 
 
 
@@ -129,15 +129,11 @@ def main():
                 
 
                 def consultaranamnesis():
-                    framerlt.destroy()
+                    ventana3=CTkToplevel(ventana)
+                    ventana3.geometry("600x700")
+                    y=120
 
-                    opcionhc1.destroy()
-                    opcionhc3.destroy()
-                    opcionhc4.destroy()
-                    ventana.geometry("600x700")
-                    y=50
-
-                    frametitulo=CTkFrame(ventana,width=600,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
+                    frametitulo=CTkFrame(ventana3,width=600,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
                     frametitulo.place(x=0,y=0)
 
                     lbltitulo2=CTkLabel(frametitulo,text="Consultas medicas",font=("Ready For Fall",30),text_color="black")
@@ -146,7 +142,7 @@ def main():
 
                     for i in documentos[0]["consulta_medica"]:
                     
-                        consulta=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
+                        consulta=CTkFrame(ventana3,width=500,height=200,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
                         consulta.place(x=50,y=y)
 
 
@@ -163,18 +159,14 @@ def main():
                         med=CTkLabel(consulta,text=f"Medico consulta:{i["medico_consulta"]}",text_color="black",font=("Ready For Fall",18))
                         med.place(x=20,y=110)
 
-                        y =y+150
-                        boton=CTkButton(ventana,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70)
+                        y =y+220
+                        boton=CTkButton(ventana3,text="Atras",border_width=3,border_color="black",text_color="black",hover_color="#ffb3c6",fg_color="#a9def9",font=("Ready For Fall",25),width=150,height=70)
                         boton.place(x=1100,y=170)
 
                 def formulaM():
-                    framerlt.destroy()
-
-                    opcionhc1.destroy()
-                    opcionhc3.destroy()
-                    opcionhc4.destroy()
-                    ventana.geometry("1100x700")
-                    frametitulo=CTkFrame(ventana,width=1100,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
+                    ventana4=CTkToplevel(ventana)
+                    ventana4.geometry("1100x700")
+                    frametitulo=CTkFrame(ventana4,width=1100,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
                     frametitulo.place(x=0,y=0)
                     x=20
 
@@ -184,7 +176,7 @@ def main():
 
                     for i in documentos[0]["formula_medica"]:
                     
-                        consulta=CTkFrame(ventana,width=500,height=400,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
+                        consulta=CTkFrame(ventana4,width=500,height=400,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
                         consulta.place(x=x,y=150)
 
 
@@ -225,13 +217,9 @@ def main():
 
 
                 def diagnostico():
-                    framerlt.destroy()
-
-                    opcionhc1.destroy()
-                    opcionhc3.destroy()
-                    opcionhc4.destroy()
-                    ventana.geometry("1100x400")
-                    frametitulo2=CTkFrame(ventana,width=1100,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
+                    ventana5 = CTkToplevel(ventana)
+                    ventana5.geometry("1100x400")
+                    frametitulo2=CTkFrame(ventana5,width=1100,height=100,border_width=5,border_color="#247ba0",fg_color="#e2e2e2")
                     frametitulo2.place(x=0,y=0)
 
                     x=20
@@ -242,7 +230,7 @@ def main():
                     
                     for i in documentos[0]["diagnostico"]:
                     
-                        consulta=CTkFrame(ventana,width=500,height=200,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
+                        consulta=CTkFrame(ventana5,width=500,height=200,border_width=3,border_color="#fe6d73",fg_color="#f4dbd8")
                         consulta.place(x=x,y=150)
 
 

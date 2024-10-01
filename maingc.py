@@ -31,7 +31,7 @@ def llenarobCita(fechad):
             i["consultorio"],
             i["hora_consulta"],
             i["hora_f"],
-            i["noDoc_paciente"]
+            ""
         )
         listacitas.append(citas)
     return listacitas
@@ -55,17 +55,17 @@ for i in range(0,7):
     lis = llenarobCita(f'{año},{mes},{i+23}')
     agenda.getDiasSemanas(i).setCitas(lis)
 
-        
+print(agenda.getDiasSemanas(0).getCitas())       
 
 
 
 
 def llenarobPaciente():
     global paciente
-    paciente = Paciente(paciente["tipo de identificacion"],
-                        paciente["identificacion"],
-                        paciente["fecha_exp"],
-                        paciente["lugar_exp"],
+    paciente = Paciente(paciente["tipo_documento"],
+                        paciente["Identificacion"],
+                        paciente["fecha_expedicion"],
+                        paciente["lugar_expedicion"],
                         paciente["nombres"],
                         paciente["apellido1"],
                         paciente["apellido2"],
@@ -82,9 +82,9 @@ def llenarobPaciente():
 def buscarPaciente(master,noD,eventoP):
     try:
         
-        busqueda = persona.find({"identificacion" : noD})
+        busqueda = persona.find({"Identificacion" : noD})
         global usuario
-        usuario = Usuario(master,busqueda[0]["nombres"],busqueda[0]["apellido1"],busqueda[0]["identificacion"],busqueda[0]["tipo de identificacion"],eventoP)
+        usuario = Usuario(master,busqueda[0]["nombres"],busqueda[0]["apellido1"],busqueda[0]["Identificacion"],busqueda[0]["tipo_documento"],eventoP)
         usuario.place(x=40,y=250)
         global paciente
         paciente = busqueda[0]
@@ -176,7 +176,7 @@ def confirmarCita(dia):
             cajaTexto = Sipi(vnCita,"consultorio:",320, 80, 280)
             cajaTexto.place(x=40,y=200)
             
-            list1 = ["23","24","25","26","27","28","29"]
+            list1 = ["30","1","2","3","4","5","6"]
             box = Nopi(vnCita,"dia:",320, 80,list1, 280)
             box.place(x=40,y=300) 
             
@@ -185,32 +185,47 @@ def confirmarCita(dia):
             def confirmHora():  
                 hora = datetime.datetime(2000,1,1,7,40)
                 fechaCi = f'{agenda.año},{agenda.mes},{box.getEntri()}'
-                cul = cita.find({"fecha_cita":fechaCi}).sort("hora_consulta", pymongo.ASCENDING)
-                for i1 in range (0,13):
-                    hora = hora + datetime.timedelta(minutes=20)
-                    minuto = hora.minute
-                    if minuto == 0:
-                        minuto = "00"
-                    horaFinal = f'{hora.hour}:{minuto}'
-                    horasD.append(horaFinal)
-                for i in cul:
-                    h = i["hora_consulta"].split(":")
-                    horasDs.append(i["hora_consulta"])
-                for i in horasD:
-                    if i in horasDs:
-                        horasD.remove(i)    
-                print(horasD)    
-                box1 = Nopi(vnCita,"hora:",320, 80,horasD, 280)
-                box1.place(x=40,y=400) 
-                horaf1 = box1.getEntri().split(":")
-                fechaCi1 = f'{agenda.año},{agenda.mes},{box.getEntri()},{horaf1[0]},{horaf1[1]}'
-                print(fechaCi1)
-                fechas = datetime.datetime(int(agenda.año),int(agenda.mes),int(box.getEntri()),int(horaf1[0]),int(horaf1[1]))
-                
-                btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20),
-                                        command=lambda:crarCita(fechas,cajaTexto1.getEntri(),cajaTexto.getEntri(),cita,paciente.getIdentificacion()))
-                btncargarCita.place(x=100,y =500)
-                vnCita.destroy()
+                try:
+                    cul = cita.find({"fecha_cita":fechaCi}).sort("hora_consulta", pymongo.ASCENDING)
+                    for i1 in range (0,13):
+                        hora = hora + datetime.timedelta(minutes=20)
+                        minuto = hora.minute
+                        if minuto == 0:
+                            minuto = "00"
+                        horaFinal = f'{hora.hour}:{minuto}'
+                        horasD.append(horaFinal)
+                    for i in cul:
+                        h = i["hora_consulta"].split(":")
+                        horasDs.append(i["hora_consulta"])
+                    for i in horasD:
+                        if i in horasDs:
+                            horasD.remove(i)    
+                    print(horasD)    
+                    box1 = Nopi(vnCita,"hora:",320, 80,horasD, 280)
+                    box1.place(x=40,y=400) 
+                    horaf1 = box1.getEntri().split(":")
+                    fechaCi1 = f'{agenda.año},{agenda.mes},{box.getEntri()},{horaf1[0]},{horaf1[1]}'
+                    print(fechaCi1)
+                    fechas = datetime.datetime(int(agenda.año),int(agenda.mes),int(box.getEntri()),int(horaf1[0]),int(horaf1[1]))
+                    
+                    btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20),
+                                            command=lambda:crarCita(fechas,cajaTexto1.getEntri(),cajaTexto.getEntri(),cita,paciente.getIdentificacion()))
+                    btncargarCita.place(x=100,y =300)
+                    # vnCita.destroy()
+
+                except:
+                    box1 = Nopi(vnCita,"hora:",320, 80,horasD, 280)
+                    box1.place(x=40,y=400) 
+                    horaf1 = box1.getEntri().split(":")
+                    fechaCi1 = f'{agenda.año},{agenda.mes},{box.getEntri()},{horaf1[0]},{horaf1[1]}'
+                    print(fechaCi1)
+                    fechas = datetime.datetime(int(agenda.año),int(agenda.mes),int(box.getEntri()),int(horaf1[0]),int(horaf1[1]))
+                    
+                    btncargarCita = CTkButton(vnCita,text="cargar",border_width=5,border_color="#127475",fg_color="#c2f8cb",text_color="black",width=200,height=50,font=("Ready For Fall",20),
+                                            command=lambda:crarCita(fechas,cajaTexto1.getEntri(),cajaTexto.getEntri(),cita,paciente.getIdentificacion()))
+                    btncargarCita.place(x=100,y =500)
+                    vnCita.destroy()
+
 
 def prueba ():
     print("hola")
